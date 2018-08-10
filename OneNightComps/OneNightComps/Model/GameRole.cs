@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OneNightComps.Model
 {
-    class GameRole
+    public class GameRole
     {
         public long ID { get; set; }
         public string Name { get; set; }

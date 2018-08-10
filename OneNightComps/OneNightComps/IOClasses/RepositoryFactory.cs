@@ -5,7 +5,7 @@ using System.Text;
 
 namespace OneNightComps.IOClasses
 {
-    class RepositoryFactory
+    public class RepositoryFactory
     {
         static RepositoryImplementation instance;
 

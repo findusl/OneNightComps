@@ -8,6 +8,7 @@ using Xamarin.UITest.Queries;
 namespace OneNightCompsTest
 {
 	[TestFixture(Platform.Android)]
+	[TestFixture(Platform.iOS)]
 	public class Tests
 	{
 		IApp app;
@@ -21,9 +22,8 @@ namespace OneNightCompsTest
 		[SetUp]
 		public void BeforeEachTest()
 		{
-            app = ConfigureApp.Android.InstalledApp("de.lehrbaum.OneNightComps").
-                PreferIdeSettings().EnableLocalScreenshots().StartApp();
-        }
+			app = AppInitializer.StartApp(platform);
+		}
 
 		[Test]
 		public void WelcomeTextIsDisplayed()

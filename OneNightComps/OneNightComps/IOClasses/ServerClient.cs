@@ -2,11 +2,11 @@
 using OneNightComps.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Data.Json;
 
 namespace OneNightComps.IOClasses
 {
@@ -15,7 +15,7 @@ namespace OneNightComps.IOClasses
     /// </summary>
     class ServerClient
     {
-        const string SERVER_BASE_URL = "https://lehrbaum.de";
+        const string SERVER_BASE_URL = "http://lehrbaum.de";
 
         HttpClient httpClient;
 
@@ -28,13 +28,22 @@ namespace OneNightComps.IOClasses
 
         public async Task<resultType> GetString<resultType>(string path)
         {
-            string serverAnswerJson = await httpClient.GetStringAsync(path);
-            Response<resultType> response = JsonConvert.DeserializeObject<Response<resultType>>(serverAnswerJson);
-            if(response.errorMessage != null)
+            try
             {
-                handleErrorMessage(response.errorMessage);
+                string serverAnswerJson = await httpClient.GetStringAsync(path);
+                Debug.WriteLine("Answer: " + serverAnswerJson);
+                GameRole r = JsonConvert.DeserializeObject<GameRole>("{\"id\":\"1\",\"name\":\"Villager\",\"description\":null,\"faction\":{\"id\":\"1\",\"name\":\"Villagers\"}}");
+                Response<resultType> response = JsonConvert.DeserializeObject<Response<resultType>>(serverAnswerJson);
+                if (response.errorMessage != null)
+                {
+                    handleErrorMessage(response.errorMessage);
+                }
+                return response.result;
+            } catch(Exception e)
+            {
+                Debug.WriteLine(e);
+                throw e;
             }
-            return response.result;
         }
 
         void handleErrorMessage(string message)

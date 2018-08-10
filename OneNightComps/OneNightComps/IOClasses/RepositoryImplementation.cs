@@ -21,8 +21,8 @@ namespace OneNightComps.IOClasses
 
         public async Task<List<GameRole>> GetRoles()
         {
-            List<GameRole> result = await client.GetString<List<GameRole>>("one_night_comps/roles/read.php");
-            return result;
+            GameRole[] result = await client.GetString<GameRole[]>("one_night_comps/game_role/read.php");
+            return new List<GameRole>(result);
         }
 
         public Task<bool> AddGameComoposition(GameComposition composition)
@@ -32,7 +32,7 @@ namespace OneNightComps.IOClasses
 
         public async Task<List<GameComposition>> GetGameCompositions()
         {
-            List<GameComposition> result = await client.GetString<List<GameComposition>>("one_night_comps/compositions/read.php");
+            List<GameComposition> result = await client.GetString<List<GameComposition>>("one_night_comps/game_composition/read.php");
             return result;
         }
 

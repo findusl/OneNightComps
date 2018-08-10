@@ -9,7 +9,7 @@ namespace OneNightComps.IOClasses
     /// <summary>
     /// This interface should follow the repository pattern together with the Specification pattern as described by Eric Evans.
     /// </summary>
-    interface IGameCompositionRepository
+    public interface IGameCompositionRepository
     {
         Task<bool> AddGameComoposition(GameComposition composition);
 

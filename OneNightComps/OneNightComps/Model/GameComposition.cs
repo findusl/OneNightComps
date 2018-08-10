@@ -7,7 +7,7 @@ namespace OneNightComps.Model
     /// <summary>
     /// A composition is a combination of roles that fit together well.
     /// </summary>
-    class GameComposition
+    public class GameComposition
     {
         public long ID { get; set; }
         public string Name { get; set; }

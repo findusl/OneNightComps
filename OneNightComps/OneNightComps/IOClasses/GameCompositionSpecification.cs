@@ -5,7 +5,7 @@ using System.Text;
 
 namespace OneNightComps.IOClasses
 {
-    interface GameCompositionSpecification
+    public interface GameCompositionSpecification
     {
         bool DoesFitSpecification(GameComposition composition);
 

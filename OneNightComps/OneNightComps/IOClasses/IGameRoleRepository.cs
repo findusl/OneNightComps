@@ -9,7 +9,7 @@ namespace OneNightComps.IOClasses
     /// <summary>
     /// This interface should follow the repository pattern together with the Specification pattern as described by Eric Evans.
     /// </summary>
-    interface IGameRoleRepository
+    public interface IGameRoleRepository
     {
         Task<List<GameRole>> GetRoles();
     }
