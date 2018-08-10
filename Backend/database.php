@@ -1,43 +1,40 @@
 <?php
 mysqli_report(MYSQLI_REPORT_STRICT);
-class Database{
+$currentVersion = 1.0;//is there some way to make constant?
 
-    $currentVersion = 1.0;//is there some way to make constant?
- 
-    // specify your own database credentials
-    private $host = "rdbms.strato.de";
-    private $username = "U2285767";
-    private $password = "W3oovyYr56LZt9wIOHUr";
-    private $db_name = "DB2285767";
-    public $conn;
- 
-    // get the database connection
-    public function getConnection(){
- 
-        $this->conn = null;
- 
-        try{
-            echo "Trying to establish connection<br>";
-            $db = new mysqli($host, $username, $password, $db_name);
+// specify your own database credentials
+private $host = "rdbms.strato.de";
+private $username = "U2285767";
+private $password = "W3oovyYr56LZt9wIOHUr";
+private $db_name = "DB2285767";
+public $conn;
 
-            if($db->connect_errno > 0){
-                exit('Unable to connect to database [' . $db->connect_error . ']');
-            }
+// get the database connection
+public function getConnection(){
 
-            echo "Connected to database<br>"
-        }catch(mysqli_sql_exception $exception){
-            exit("Connection error: " . $exception->getMessage());
+    $this->conn = null;
+
+    try{
+        echo "Trying to establish connection<br>";
+        $db = new mysqli($host, $username, $password, $db_name);
+
+        if($db->connect_errno > 0){
+            exit('Unable to connect to database [' . $db->connect_error . ']');
         }
- 
-        return $db;
+
+        echo "Connected to database<br>"
+    }catch(mysqli_sql_exception $exception){
+        exit("Connection error: " . $exception->getMessage());
     }
 
-    public function getJSON($result) {
-        $resultArray = array();
-        while($row = $result->fetch_array(MYSQL_ASSOC)) {
-            $resultArray[] = $row;
-        }
-        return json_encode($resultArray);
+    return $db;
+}
+
+public function getResultArray($result) {
+    $resultArray = array();
+    while($row = $result->fetch_array(MYSQL_ASSOC)) {
+        $resultArray[] = $row;
     }
+    return $resultArray;
 }
 ?>
