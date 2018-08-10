@@ -5,7 +5,7 @@ $currentVersion = 1.0;//is there some way to make constant?
 // specify your own database credentials
 private $host = "rdbms.strato.de";
 private $username = "U2285767";
-private $password = "W3oovyYr56LZt9wIOHUr";
+private $password = "";
 private $db_name = "DB2285767";
 public $conn;
 
