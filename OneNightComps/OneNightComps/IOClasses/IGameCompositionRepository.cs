@@ -14,5 +14,7 @@ namespace OneNightComps.IOClasses
         Task<bool> AddGameComoposition(GameComposition composition);
 
         Task<List<GameComposition>> GetGameCompositions();
+
+        Task<List<GameComposition>> GetGameCompositions(GameCompositionSpecification specification);
     }
 }

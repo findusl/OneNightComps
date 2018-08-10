@@ -20,12 +20,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)IOClasses\IGameCompositionRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IOClasses\IGameRoleRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IOClasses\RepositoryFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IOClasses\RepositoryImplementation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IOClasses\ServerClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Model\GameComposition.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\GameFaction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\GameRole.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\User.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\UserManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Views\" />
