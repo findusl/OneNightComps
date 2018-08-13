@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OneNightComps.Model
 {
-    class User
+    public class User
     {
         public long ID { get; set; }
         public string Name { get; set; }

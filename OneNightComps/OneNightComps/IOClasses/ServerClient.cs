@@ -13,13 +13,13 @@ namespace OneNightComps.IOClasses
     /// <summary>
     /// This class cares about connecting to the remote server
     /// </summary>
-    class ServerClient
+    class ServerClient : IServerClient
     {
         const string SERVER_BASE_URL = "http://lehrbaum.de";
 
         HttpClient httpClient;
 
-        public ServerClient(User user)
+        internal ServerClient(User user)
         {
             httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(SERVER_BASE_URL);
