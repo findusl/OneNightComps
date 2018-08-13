@@ -20,9 +20,19 @@ try {
         $result[] = $gameRole;
     }
     $response = array("errorMessage"=>"", "result"=>$result);
-    echo $response["result"][0]["description"];
     echo json_encode($response);
 } catch(mysqli_sql_exception $exception){
     exit("query error: " . $exception->getMessage());
+}
+
+function utf8ize($d) {
+    if (is_array($d)) {
+        foreach ($d as $k => $v) {
+            $d[$k] = utf8ize($v);
+        }
+    } else if (is_string ($d)) {
+        return utf8_encode($d);
+    }
+    return $d;
 }
 ?>

@@ -32,7 +32,6 @@ namespace OneNightComps.IOClasses
             {
                 string serverAnswerJson = await httpClient.GetStringAsync(path);
                 Debug.WriteLine("Answer: " + serverAnswerJson);
-                GameRole r = JsonConvert.DeserializeObject<GameRole>("{\"id\":\"1\",\"name\":\"Villager\",\"description\":null,\"faction\":{\"id\":\"1\",\"name\":\"Villagers\"}}");
                 Response<resultType> response = JsonConvert.DeserializeObject<Response<resultType>>(serverAnswerJson);
                 if (response.errorMessage != null)
                 {
@@ -53,8 +52,8 @@ namespace OneNightComps.IOClasses
 
         class Response<resultType>
         {
-            internal string errorMessage;
-            internal resultType result;
+            public string errorMessage { get; set; }
+            public resultType result { get; set; }
         }
     }
 }

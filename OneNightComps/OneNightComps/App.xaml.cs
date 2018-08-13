@@ -1,3 +1,4 @@
+using OneNightComps.Pages.MainPage;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,7 +12,7 @@ namespace OneNightComps
 		{
 			InitializeComponent();
 
-			MainPage = new MainPage();
+            MainPage = new MainPage();
 		}
 
 		protected override void OnStart ()

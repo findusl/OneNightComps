@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,10 +9,17 @@ namespace OneNightComps.Pages.MainPage
 	{
 		public MainPage ()
 		{
-			InitializeComponent ();
+            MenuPage menuPage = new MenuPage();
+            menuPage.OnElementSelected += OptionSelected;
+            Master = menuPage;
 
-			Master = new MenuPage();
-			Detail = new SearchPage();
+            NavigationPage navigationPage = new NavigationPage(new SearchPage());
+            Detail = navigationPage;
 		}
+
+        void OptionSelected(MenuOptions selectedOption)
+        {
+
+        }
 	}
 }

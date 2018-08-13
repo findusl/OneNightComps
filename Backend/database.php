@@ -19,6 +19,8 @@ function getConnection(){
             exit('Unable to connect to database [' . $db->connect_error . ']');
         }
 
+        !$db->set_charset("utf8");
+
         return $db;
     }catch(mysqli_sql_exception $exception){
         exit("Connection error: " . $exception->getMessage());

@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `game_role` (
 	`id`	int AUTO_INCREMENT PRIMARY KEY,
 	`name`	TEXT,
 	`description`	TEXT,
-	`last_modified`	timestamp DEFAULT CURRENT_TIMESTAMP,
+	`last_modified`	int,
 	`game_faction_id` int REFERENCES `game_faction`(`id`) ON UPDATE cascade
 );
 INSERT INTO `game_role` VALUES (1,'Villager','The Villager has no special abilities, but he is definitly not a werewolf. Players may often claim to be a villager.',1533494726,1),
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `game_composition` (
 	`role_count`	INT NOT NULL,
 	`difficulty_level`	int,
 	`creator_user_id`	INT REFERENCES `user`(`id`) on update cascade,
-	`last_modified`	timestamp DEFAULT CURRENT_TIMESTAMP,
+	`last_modified`	int,
 	INDEX (name)
 );
 DROP TABLE IF EXISTS `game_composition_role`;

@@ -1,12 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="OneNightComps.Pages.MainPage.MenuPage">
+             x:Class="OneNightComps.Pages.MainPage.MenuPage" Title="Menu">
     <ContentPage.Content>
-        <ListView x:Name="OptionsListView">
-            <ListView.ItemTemplate>
-                <TextCell/>
-            </ListView.ItemTemplate>
-        </ListView>
+        <ListView x:Name="OptionsListView"/>
     </ContentPage.Content>
 </ContentPage>
