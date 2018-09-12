@@ -17,9 +17,10 @@ namespace OneNightComps.Pages.MainPage
             Detail = navigationPage;
 		}
 
-        void OptionSelected(MenuOptions selectedOption)
+        void OptionSelected(MainPageMenuItem selectedOption)
         {
-
+            Detail = new NavigationPage(selectedOption.GeneratePage());
+            IsPresented = false;
         }
 	}
 }

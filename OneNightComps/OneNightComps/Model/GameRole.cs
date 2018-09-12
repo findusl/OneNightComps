@@ -15,5 +15,10 @@ namespace OneNightComps.Model
         public string Description { get; set; }
         [JsonProperty("faction")]
         public GameFaction Faction { get; set; }
+
+        public override string ToString()
+        {
+            return ID + ":" + Name + " {" + Faction.ToString() + "}\n" + Description;
+        }
     }
 }

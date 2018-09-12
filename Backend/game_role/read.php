@@ -9,8 +9,8 @@ include_once '../database.php';
 $database = getConnection();
 
 try {
-    $query = "SELECT r.id AS id, r.name AS name, description, game_faction_id, f.name AS game_faction_name" .
-        " FROM game_role r JOIN game_faction f ON r.game_faction_id = f.id";
+    $query = "SELECT r.id AS id, r.name AS name, description, game_faction_id, f.name AS game_faction_name ".
+        "FROM game_role r JOIN game_faction f ON r.game_faction_id = f.id";
     $queryResult = mysqli_query($database, $query);
     $result = array();
     while($row = $queryResult->fetch_assoc()) {

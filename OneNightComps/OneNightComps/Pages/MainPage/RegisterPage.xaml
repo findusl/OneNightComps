@@ -4,9 +4,19 @@
              x:Class="OneNightComps.Pages.MainPage.RegisterPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Entry x:Name="UserNameEntry" Placeholder="Username">
+                <Entry.Keyboard>
+                    <Keyboard x:FactoryMethod="Create">
+                        <x:Arguments>
+                            <KeyboardFlags>CapitalizeNone</KeyboardFlags>
+                        </x:Arguments>
+                    </Keyboard>
+                </Entry.Keyboard>
+            </Entry>
+            <!-- Add return type and return action -->
+            <Entry x:Name="PasswordEntry" IsPassword="True" Placeholder="Password" />
+            <Entry x:Name="EMailEntry" Keyboard="Email" ReturnType="Send" Placeholder="EMail"/>
+            <Button Pressed="OnRegisterPressed" Text="Register"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -3,8 +3,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 	`id`	int AUTO_INCREMENT PRIMARY KEY,
 	user_name	VARCHAR(100) NOT NULL UNIQUE,
 	e_mail	VARCHAR(100) NOT NULL UNIQUE,
-	`pw_hash_hex`	TEXT,
-	`hash_salt_hex`	TEXT,
+	`pw_hash_base64` VARCHAR(27),
 	INDEX (user_name),
 	INDEX (e_mail)
 );

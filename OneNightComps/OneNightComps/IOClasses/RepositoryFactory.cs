@@ -1,9 +1,4 @@
-﻿using OneNightComps.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OneNightComps.IOClasses
+﻿namespace OneNightComps.IOClasses
 {
     public static class RepositoryFactory
     {
@@ -12,14 +7,21 @@ namespace OneNightComps.IOClasses
         public static IGameCompositionRepository GetGameCompositionRepository()
         {
             if (instance == null)
-                instance = new RepositoryImplementation(UserManager.GetCurrentUser());
+                instance = new RepositoryImplementation(UserManager.GetInstance().CurrentUser);
             return instance;
         }
 
         public static IGameRoleRepository GetGameRoleRepository()
         {
             if (instance == null)
-                instance = new RepositoryImplementation(UserManager.GetCurrentUser());
+                instance = new RepositoryImplementation(UserManager.GetInstance().CurrentUser);
+            return instance;
+        }
+
+        public static IUserRepository GetUserRepository()
+        {
+            if (instance == null)
+                instance = new RepositoryImplementation(UserManager.GetInstance().CurrentUser);
             return instance;
         }
     }

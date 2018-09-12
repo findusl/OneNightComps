@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="OneNightComps.Pages.MainPage.SearchPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Orientation="Vertical">
+            <Label x:Name="AmountLabel" Text="Amount of players: 4"/>
+            <Slider x:Name="AmountSlider" Maximum="20" Minimum="1" Value="4" 
+                    ValueChanged="AmountPlayersChanged"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

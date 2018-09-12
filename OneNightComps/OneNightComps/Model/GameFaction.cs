@@ -11,5 +11,10 @@ namespace OneNightComps.Model
         public long ID { get; set; }
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        public override string ToString()
+        {
+            return ID + ":" + Name;
+        }
     }
 }

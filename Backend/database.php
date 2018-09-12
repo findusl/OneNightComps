@@ -12,6 +12,7 @@ $db_name = "DB3462419";
 function getConnection(){
     global $host, $username, $password, $db_name;
     try{
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
         //echo "Trying to establish connection<br>";
         $db = new mysqli($host, $username, $password, $db_name);
 

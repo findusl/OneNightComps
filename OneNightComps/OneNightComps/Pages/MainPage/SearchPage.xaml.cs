@@ -16,5 +16,12 @@ namespace OneNightComps.Pages.MainPage
 		{
 			InitializeComponent ();
 		}
-	}
+
+        void AmountPlayersChanged(object sender, ValueChangedEventArgs e)
+        {
+            int newValue = (int)Math.Round(e.NewValue);
+            AmountSlider.Value = newValue;
+            AmountLabel.Text = "Amount of players: " + newValue;
+        }
+    }
 }

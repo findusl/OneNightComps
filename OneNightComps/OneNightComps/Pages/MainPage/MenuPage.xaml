@@ -3,6 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="OneNightComps.Pages.MainPage.MenuPage" Title="Menu">
     <ContentPage.Content>
-        <ListView x:Name="OptionsListView"/>
+        <StackLayout Orientation="Vertical">
+            <Label Text="One night comps"/>
+            <Label x:Name="UserNameLabel" IsVisible="False"/>
+            <ListView x:Name="OptionsListView" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <StackLayout/>
+                </ListView.Footer>
+            </ListView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

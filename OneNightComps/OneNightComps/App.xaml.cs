@@ -1,5 +1,9 @@
+using OneNightComps.IOClasses;
+using OneNightComps.Model;
 using OneNightComps.Pages.MainPage;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,6 +15,14 @@ namespace OneNightComps
 		public App ()
 		{
 			InitializeComponent();
+
+            RepositoryFactory.GetGameRoleRepository().GetRoles().ContinueWith((t) =>
+            {
+                if (t.Exception != null)
+                    Debug.WriteLine(t.Exception);
+                else
+                    Debug.WriteLine(t.Result[0].ToString());
+            });
 
             MainPage = new MainPage();
 		}
