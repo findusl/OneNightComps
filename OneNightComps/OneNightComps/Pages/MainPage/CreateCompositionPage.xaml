@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="OneNightComps.Pages.MainPage.CreateCompositionPage" 
+             xmlns:mainpage="clr-namespace:OneNightComps.Pages.MainPage">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" Margin="5">
+            <Label Text="Create a new composition" HorizontalOptions="Center"/>
+            <Entry x:Name="NameEntry" Placeholder="Name"/>
+            <Label x:Name="DifficultyLabel" Text="Difficulty: 1"/>
+            <Slider x:Name="DifficultySlider" Maximum="10" Minimum="1" ValueChanged="DifficultyValueChanged"/>
+            <Editor x:Name="DescriptionEditor" Placeholder="Description"/>
+            <mainpage:RolesListView x:Name="RolesListView" VerticalOptions="Fill"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

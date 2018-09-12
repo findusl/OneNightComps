@@ -94,6 +94,7 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CustomRenderers\LimitedLabelRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -152,9 +153,14 @@
       <Version>11.0.2</Version>
     </PackageReference>
     <PackageReference Include="Portable.BouncyCastle">
-      <Version>1.8.2</Version>
+      <Version>1.8.3</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="3.2.0.729530-pre2" />
+    <PackageReference Include="Xamarin.Forms">
+      <Version>3.2.0.809874-pre3</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CustomRenderers\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\OneNightComps\OneNightComps.projitems" Label="Shared" />

@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using OneNightComps.Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,7 +7,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace OneNightComps.IOClasses
 {
@@ -35,7 +33,7 @@ namespace OneNightComps.IOClasses
             if(query != null)
             {
                 string queryString = BuildHttpQueryString(query);
-                path += "?" + queryString;
+                path += queryString;
             }
             Debug.WriteLine("path: " + path);
             try
@@ -81,12 +79,12 @@ namespace OneNightComps.IOClasses
 
         string BuildHttpQueryString(Dictionary<string, string> queryDictionary)
         {
-            var query = HttpUtility.ParseQueryString(string.Empty);
+            string query = "?";
             foreach (KeyValuePair<string, string> entry in queryDictionary)
             {
-                query[entry.Key] = entry.Value;
+                query += WebUtility.UrlEncode(entry.Key) + "=" + WebUtility.UrlEncode(entry.Value);
             }
-            return query.ToString();
+            return query;
         }
 
         void HandleErrorMessage(string message)
