@@ -21,6 +21,7 @@ object CompositionRepository {
     private fun <ResultType>convertRetrofitCallback(callback: Consumer<ResultType>, errorResolver: Resolution): Callback<RestResponse<ResultType>> {
         return object: Callback<RestResponse<ResultType>> {
             override fun onFailure(call: Call<RestResponse<ResultType>>, t: Throwable) {
+                //TODO I assume no internet raises exception here
                 errorResolver.onUnkownException(t)
             }
 
