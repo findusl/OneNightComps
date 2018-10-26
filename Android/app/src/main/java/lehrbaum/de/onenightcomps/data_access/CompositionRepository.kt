@@ -11,18 +11,18 @@ object CompositionRepository {
     private const val TAG = "CompositionRepository"
     private var restService: RestService = RestService.getInstance()
 
-    fun getCompositions(callback: Consumer<Array<Composition>>, errorResolver: Resolution) {
-        restService.getCompositions().enqueue(convertRetrofitCallback(callback, errorResolver))
+    fun getCompositions(callback: Consumer<Array<Composition>>, errorResolution: Resolution) {
+        restService.getCompositions().enqueue(convertRetrofitCallback(callback, errorResolution))
     }
 
     /**
-     * This method takes care of converting the retrofit callback to our style of consumer callback and error resolver
+     * This method takes care of converting the retrofit callback to our style of consumer callback and error resolution
      */
-    private fun <ResultType>convertRetrofitCallback(callback: Consumer<ResultType>, errorResolver: Resolution): Callback<RestResponse<ResultType>> {
+    private fun <ResultType>convertRetrofitCallback(callback: Consumer<ResultType>, errorResolution: Resolution): Callback<RestResponse<ResultType>> {
         return object: Callback<RestResponse<ResultType>> {
             override fun onFailure(call: Call<RestResponse<ResultType>>, t: Throwable) {
                 //TODO I assume no internet raises exception here
-                errorResolver.onUnkownException(t)
+                errorResolution.onUnkownException(t)
             }
 
             override fun onResponse(
@@ -40,7 +40,7 @@ object CompositionRepository {
                     } else {
                         Log.wtf(TAG, "onResponse: No body even thought request was successful. " +
                                 "That is weird. Response code: " + response.code());
-                        errorResolver.onRessourceNotFound()
+                        errorResolution.onRessourceNotFound()
                     }
                 } else {
                     TODO("Handle the http error code: " + response.code())
