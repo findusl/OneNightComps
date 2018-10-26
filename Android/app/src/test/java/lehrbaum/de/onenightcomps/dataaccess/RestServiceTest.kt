@@ -1,6 +1,5 @@
-package lehrbaum.de.onenightcomps.data_access
+package lehrbaum.de.onenightcomps.dataaccess
 
-import lehrbaum.de.onenightcomps.data_access.RestService
 import org.junit.Assert.*
 import org.junit.Test
 

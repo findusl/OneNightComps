@@ -1,4 +1,4 @@
-package lehrbaum.de.onenightcomps.data_access
+package lehrbaum.de.onenightcomps.dataaccess
 
 interface HttpResolution {
     fun onServerUnavailable()

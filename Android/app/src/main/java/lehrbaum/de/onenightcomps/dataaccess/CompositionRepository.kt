@@ -1,4 +1,4 @@
-package lehrbaum.de.onenightcomps.data_access
+package lehrbaum.de.onenightcomps.dataaccess
 
 import android.util.Log
 import androidx.core.util.Consumer
@@ -6,6 +6,7 @@ import lehrbaum.de.onenightcomps.model.Composition
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.UnknownHostException
 
 object CompositionRepository {
     private const val TAG = "CompositionRepository"
@@ -21,8 +22,11 @@ object CompositionRepository {
     private fun <ResultType>convertRetrofitCallback(callback: Consumer<ResultType>, errorResolution: Resolution): Callback<RestResponse<ResultType>> {
         return object: Callback<RestResponse<ResultType>> {
             override fun onFailure(call: Call<RestResponse<ResultType>>, t: Throwable) {
-                //TODO I assume no internet raises exception here
-                errorResolution.onUnkownException(t)
+				//TODO check for no internet and call different function
+				if(t is UnknownHostException)
+					errorResolution.onServerUnavailable()
+				else
+                	errorResolution.onUnkownException(t)
             }
 
             override fun onResponse(

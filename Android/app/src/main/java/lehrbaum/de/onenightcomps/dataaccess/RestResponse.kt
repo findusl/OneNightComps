@@ -1,4 +1,4 @@
-package lehrbaum.de.onenightcomps.data_access
+package lehrbaum.de.onenightcomps.dataaccess
 
 /**
  * I am to stupid to use correct http error codes on php side so I use my own version

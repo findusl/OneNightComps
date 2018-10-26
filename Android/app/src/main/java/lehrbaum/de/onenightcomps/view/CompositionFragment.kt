@@ -28,6 +28,7 @@ class CompositionFragment : Fragment() {
 
 	override fun onAttach(context: Context) {
 		super.onAttach(context)
+		//Could also call this in onActivityCreated if I move some code from onCreateView there
 		if(activity != null) {
 			//the master detail view model depends on the parent activity so the detail fragment can use it
 			masterDetailViewModel = ViewModelProviders.of(activity!!)

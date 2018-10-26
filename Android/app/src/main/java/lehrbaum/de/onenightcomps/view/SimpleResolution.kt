@@ -2,7 +2,7 @@ package lehrbaum.de.onenightcomps.view
 
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
-import lehrbaum.de.onenightcomps.data_access.Resolution
+import lehrbaum.de.onenightcomps.dataaccess.Resolution
 
 class SimpleResolution(val view: View) : Resolution {
 	override fun onServerUnavailable() {

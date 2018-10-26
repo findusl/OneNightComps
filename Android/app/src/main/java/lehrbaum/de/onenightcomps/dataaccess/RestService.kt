@@ -1,4 +1,4 @@
-package lehrbaum.de.onenightcomps.data_access
+package lehrbaum.de.onenightcomps.dataaccess
 
 import lehrbaum.de.onenightcomps.model.Composition
 import retrofit2.Call

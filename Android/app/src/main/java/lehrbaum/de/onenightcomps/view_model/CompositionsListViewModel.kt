@@ -4,8 +4,7 @@ import androidx.core.util.Consumer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import lehrbaum.de.onenightcomps.data_access.CompositionRepository
-import lehrbaum.de.onenightcomps.data_access.Resolution
+import lehrbaum.de.onenightcomps.dataaccess.CompositionRepository
 import lehrbaum.de.onenightcomps.model.Composition
 
 class CompositionsListViewModel : ViewModel() {

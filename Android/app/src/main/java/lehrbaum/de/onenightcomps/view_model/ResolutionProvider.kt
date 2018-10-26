@@ -1,7 +1,6 @@
 package lehrbaum.de.onenightcomps.view_model
 
-import lehrbaum.de.onenightcomps.data_access.Resolution
-import java.lang.Exception
+import lehrbaum.de.onenightcomps.dataaccess.Resolution
 import java.lang.RuntimeException
 
 object ResolutionProvider {
