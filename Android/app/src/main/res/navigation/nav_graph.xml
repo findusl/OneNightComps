@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+			xmlns:app="http://schemas.android.com/apk/res-auto"
+			xmlns:tools="http://schemas.android.com/tools"
+			android:id="@+id/nav_graph"
+			app:startDestination="@id/compositionListFragment">
+
+	<fragment
+			android:id="@+id/compositionListFragment"
+			android:name="lehrbaum.de.onenightcomps.view.CompositionListFragment"
+			android:label="@string/fragment_composition_list"
+			tools:layout="@layout/fragment_composition_list">
+		<action
+				android:id="@+id/action_compositionListFragment_to_compositionDetailFragment"
+				app:destination="@id/compositionDetailFragment"/>
+	</fragment>
+	<fragment
+			android:id="@+id/compositionDetailFragment"
+			android:name="lehrbaum.de.onenightcomps.view.CompositionDetailFragment"
+			android:label="composition_detail"
+			tools:layout="@layout/composition_detail"/>
+</navigation>

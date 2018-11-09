@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.composition_detail.view.*
 import lehrbaum.de.onenightcomps.R
 import lehrbaum.de.onenightcomps.model.Composition
-import lehrbaum.de.onenightcomps.view_model.MasterDetailCompositionsViewModel
+import lehrbaum.de.onenightcomps.viewmodel.MasterDetailCompositionsViewModel
 
 class CompositionDetailFragment : Fragment() {
 

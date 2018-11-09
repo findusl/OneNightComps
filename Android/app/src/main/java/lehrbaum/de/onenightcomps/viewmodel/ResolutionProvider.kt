@@ -1,4 +1,4 @@
-package lehrbaum.de.onenightcomps.view_model
+package lehrbaum.de.onenightcomps.viewmodel
 
 import lehrbaum.de.onenightcomps.dataaccess.Resolution
 import java.lang.RuntimeException

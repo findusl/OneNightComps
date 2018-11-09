@@ -1,4 +1,4 @@
-package lehrbaum.de.onenightcomps.view_model
+package lehrbaum.de.onenightcomps.viewmodel
 
 import androidx.core.util.Consumer
 import androidx.lifecycle.LiveData

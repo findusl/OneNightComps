@@ -5,6 +5,7 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Header
 
 
 internal interface RestService {
@@ -21,4 +22,11 @@ internal interface RestService {
 
     @GET("game_composition/read.php")
     fun getCompositions() : Call<RestResponse<Array<Composition>>>
+
+	@GET("user/login.php")
+    fun login(@Header("Authorization") auth: Authorization)
+
+	public data class Authorization (val userId: Int = -1,
+									 val userName: String = "",
+									 val passwordHash: String = "")
 }

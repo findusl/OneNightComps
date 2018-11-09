@@ -10,11 +10,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import lehrbaum.de.onenightcomps.R
-import lehrbaum.de.onenightcomps.view_model.CompositionsListViewModel
-import lehrbaum.de.onenightcomps.view_model.MasterDetailCompositionsViewModel
+import lehrbaum.de.onenightcomps.model.Composition
+import lehrbaum.de.onenightcomps.viewmodel.CompositionsListViewModel
+import lehrbaum.de.onenightcomps.viewmodel.MasterDetailCompositionsViewModel
 
-class CompositionFragment : Fragment() {
+class CompositionListFragment : Fragment() {
 	private var columnCount = 1
 
 	private lateinit var masterDetailViewModel : MasterDetailCompositionsViewModel
@@ -52,9 +54,14 @@ class CompositionFragment : Fragment() {
 					columnCount <= 1 -> LinearLayoutManager(context)
 					else -> GridLayoutManager(context, columnCount)
 				}
-				adapter = CompositionRecyclerViewAdapter(compositionsViewModel, masterDetailViewModel)
+				adapter = CompositionRecyclerViewAdapter(compositionsViewModel.getCompositions(), ::onItemSelected)
 			}
 		}
 		return view
+	}
+
+	private fun onItemSelected(comp: Composition) {
+		masterDetailViewModel.onCompositionSelected(comp)
+		findNavController().navigate(R.id.action_compositionListFragment_to_compositionDetailFragment);
 	}
 }

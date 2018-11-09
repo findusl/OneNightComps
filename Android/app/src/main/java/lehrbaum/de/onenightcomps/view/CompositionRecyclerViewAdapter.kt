@@ -4,24 +4,26 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.TextView
+import androidx.core.util.Consumer
+import androidx.lifecycle.LiveData
 import lehrbaum.de.onenightcomps.R
 
 import kotlinx.android.synthetic.main.fragment_composition.view.*
 import lehrbaum.de.onenightcomps.model.Composition
-import lehrbaum.de.onenightcomps.view_model.CompositionsListViewModel
-import lehrbaum.de.onenightcomps.view_model.MasterDetailCompositionsViewModel
+import lehrbaum.de.onenightcomps.viewmodel.CompositionsListViewModel
+import lehrbaum.de.onenightcomps.viewmodel.MasterDetailCompositionsViewModel
 
 class CompositionRecyclerViewAdapter(
-	private val compositionsListViewModel: CompositionsListViewModel,
-	private val masterDetailViewModel: MasterDetailCompositionsViewModel
+	private val compositionsList: LiveData<Array<Composition>>,
+	private val onItemSelectedListener: (c: Composition) -> Unit
 	) : RecyclerView.Adapter<CompositionRecyclerViewAdapter.ViewHolder>() {
-
-	private val compositionsList = compositionsListViewModel.getCompositions()
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 		val view = LayoutInflater.from(parent.context)
 			.inflate(R.layout.fragment_composition, parent, false)
+
 		return ViewHolder(view)
 	}
 
@@ -30,8 +32,7 @@ class CompositionRecyclerViewAdapter(
 		holder.iddView.text = comp.id.toString()
 		holder.contentView.text = comp.name
 		holder.view.tag = comp
-		holder.view.setOnClickListener { viewHolder ->
-			masterDetailViewModel.onCompositionSelected(viewHolder.tag as Composition) }
+		holder.view.setOnClickListener { view -> onItemSelectedListener(comp) }
 	}
 
 	override fun getItemCount(): Int = compositionsList.value?.size ?: 0
