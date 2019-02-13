@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/nav_graph"
+	app:startDestination="@id/compositionListFragment">
+
+	<fragment
+		android:id="@+id/compositionListFragment"
+		android:name="lehrbaum.de.onenightcomps.fragments.CompositionListFragment"
+		android:label="@string/role_comps_menu"
+		tools:layout="@layout/composition_list_fragment">
+		<action
+			android:id="@+id/action_compositionListFragment_to_compositionDetailFragment"
+			app:destination="@id/compositionDetailFragment"
+			/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/compositionDetailFragment"
+		android:name="lehrbaum.de.onenightcomps.fragments.CompositionDetailFragment"
+		android:label="@string/comp_detail_label"
+		tools:layout="@layout/composition_detail"/>
+
+	<fragment android:id="@+id/loginFragment"
+		android:name="lehrbaum.de.onenightcomps.fragments.LoginFragment"
+		android:label="@string/action_title_login"
+		tools:layout="@layout/login_fragment">
+		<action
+			android:id="@+id/action_loginFragment_to_compositionListFragment"
+			app:destination="@id/compositionListFragment"
+			app:popUpTo="@id/compositionListFragment"
+			app:launchSingleTop="true"
+			/>
+	</fragment>
+	<fragment
+		android:id="@+id/createCompositionFragment"
+		android:name="lehrbaum.de.onenightcomps.fragments.CreateCompositionFragment"
+		android:label="CreateCompositionFragment" >
+		<action
+			android:id="@+id/action_createCompositionFragment_to_compositionListFragment"
+			app:destination="@id/compositionListFragment"
+			app:popUpTo="@id/compositionListFragment"
+			app:launchSingleTop="true"
+			/>
+	</fragment>
+</navigation>

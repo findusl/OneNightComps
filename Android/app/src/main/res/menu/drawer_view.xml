@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/compositionListFragment"
+        android:title="@string/role_comps_menu"
+        />
+    <item
+        android:id="@+id/loginFragment"
+        android:title="@string/action_title_login"
+        />
+    <item
+        android:id="@+id/createCompositionFragment"
+        android:title="@string/create_composition_fragment"
+        />
+    <item
+        android:id="@+id/logoutAction"
+		android:title="@string/action_title_logout"
+        />
+</menu>

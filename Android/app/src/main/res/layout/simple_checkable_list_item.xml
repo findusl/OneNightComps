@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+	<data>
+		<variable name="viewModel"
+			type="lehrbaum.de.onenightcomps.view.SimpleCheckableListItemViewModel"/>
+	</data>
+	<CheckedTextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/textView"
+		android:padding="@dimen/text_margin"
+		android:gravity="center_vertical"
+		android:textStyle="bold"
+		android:checkMark="?android:attr/listChoiceIndicatorSingle"
+		android:checkMarkTint="@color/colorPrimary"
+		android:checked="@{viewModel.checked}"
+		android:text="@{viewModel.text}"
+		android:onClick="@{viewModel.onClick}"/>
+</layout>

@@ -1,0 +1,11 @@
+<resources>
+	<dimen name="fab_margin">16dp</dimen>
+	<dimen name="app_bar_height">200dp</dimen>
+	<dimen name="item_width">200dp</dimen>
+	<dimen name="text_margin">16dp</dimen>
+	<!-- Default screen margins, per the Android Design guidelines. -->
+	<dimen name="activity_horizontal_margin">16dp</dimen>
+	<dimen name="activity_vertical_margin">16dp</dimen>
+	<!-- for some reason my nav header is under the status bar... -->
+	<dimen name="nav_header_top_spacing">32dp</dimen>
+</resources>

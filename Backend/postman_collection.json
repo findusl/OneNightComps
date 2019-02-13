@@ -1,0 +1,80 @@
+{
+	"info": {
+		"_postman_id": "9f34977c-d9eb-49fb-a198-aba2cda89987",
+		"name": "OneNightComps",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "asdf",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "findus_l2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{\"user\":\"findus_l\",\"pwHash\":\"asdf\"}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://lehrbaum.de/one_night_comps/user/login.php",
+					"protocol": "https",
+					"host": [
+						"lehrbaum",
+						"de"
+					],
+					"path": [
+						"one_night_comps",
+						"user",
+						"login.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Compositions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://lehrbaum.de/one_night_comps/game_composition/read.php",
+					"protocol": "https",
+					"host": [
+						"lehrbaum",
+						"de"
+					],
+					"path": [
+						"one_night_comps",
+						"game_composition",
+						"read.php"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

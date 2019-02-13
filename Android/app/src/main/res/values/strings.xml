@@ -1,0 +1,29 @@
+<resources>
+	<string name="app_name">OneNightComps</string>
+	<string name="title_composition_list">Compositions</string>
+	<string name="number_players">Number players:</string>
+	<string name="filter_List">filter</string>
+	<string name="username">Username</string>
+	<string name="password">Password</string>
+	<string name="usernameEmpty">Username has to be set.</string>
+	<string name="role_comps_menu">Role compositions</string>
+	<string name="comp_detail_label">Composition detail</string>
+	<string name="description_title">Description</string>
+	<string name="title_nav_header">Role compositions for Werewolf Onenight</string>
+	<string name="hello_user">Hello %s.</string>
+	<string name="create_composition_fragment">Create Composition</string>
+	<string name="done">Done</string>
+	<string name="composition_title_hint">Composition Title (Optional)</string>
+	<string name="composition_description_hint">Description of the role composition (Optional)</string>
+	<string name="action_title_logout">logout</string>
+	<string name="action_title_login">Login</string>
+	<string name="warning_no_internet_connection">Please check your internet connection and try again.</string>
+	<string name="warning_not_enough_roles_selected">You have to select at least %d roles.</string>
+	<string name="warning_wait_for_roles_loading">Please wait for the roles to load.</string>
+	<string name="warning_no_title">Please input a title.</string>
+	<string name="error_unknown">Unknown error: %s</string>
+	<string name="error_resource_not_found">Could not access the file on the server.
+		Do you have the latest version of the app?</string>
+	<string name="warning_wrong_username_password">Wrong username or password.</string>
+	<string name="error_unexpected">The server encountered an unknown error when trying to create the composition. Please contact the app developers via the play store.</string>
+</resources>

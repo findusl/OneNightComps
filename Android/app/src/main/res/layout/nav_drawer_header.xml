@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+	<data>
+		<variable
+			name="viewModel"
+			type="lehrbaum.de.onenightcomps.viewmodel.NavDrawerViewModel"/>
+	</data>
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<TextView
+			style="?android:attr/textAppearanceLarge"
+			android:text="@string/title_nav_header"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:singleLine="false"
+			android:background="@color/colorPrimary"
+			android:paddingStart="@dimen/activity_horizontal_margin"
+			android:paddingEnd="@dimen/activity_horizontal_margin"
+			android:paddingBottom="8dp"
+			android:layout_marginBottom="8dp"
+			android:paddingTop="@dimen/nav_header_top_spacing"/>
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@{@string/hello_user(viewModel.userDisplayName)}"
+			android:visibility="@{viewModel.userVisible}"
+			android:paddingStart="@dimen/activity_horizontal_margin"
+			android:paddingEnd="@dimen/activity_horizontal_margin"
+			/>
+
+	</LinearLayout>
+</layout>
