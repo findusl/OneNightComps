@@ -8,14 +8,14 @@ import lehrbaum.de.onenightcomps.model.Composition
 private const val TAG = "CompositionRepository"
 
 class CompositionRepository {
-    private val restService: RestService by inject()
-    fun getCompositionsAsync() : Deferred<Array<Composition>> {
-        val deferred = CompletableDeferred<Array<Composition>>()
-        restService.getCompositions().enqueue(deferred.generateRetrofitCallback())
-        return deferred
-    }
+	private val restService: RestService by inject()
+	fun getCompositionsAsync(): Deferred<Array<Composition>> {
+		val deferred = CompletableDeferred<Array<Composition>>()
+		restService.getCompositions().enqueue(deferred.generateRetrofitCallback())
+		return deferred
+	}
 
-    fun createCompositionAsync(composition: Composition) : Deferred<Int> {
+	fun createCompositionAsync(composition: Composition): Deferred<Int> {
 		val deferred = CompletableDeferred<Int>()
 		restService.createComposition(composition).enqueue(deferred.generateRetrofitCallback())
 		return deferred

@@ -29,8 +29,8 @@ class CompositionListFragment : ErrorHandlingFragment<CompositionsListViewModel>
 
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
-		savedInstanceState: Bundle?): View?
-	{
+		savedInstanceState: Bundle?
+	): View? {
 		val listBinding =
 			CompositionListFragmentBinding.inflate(inflater, container, false)
 		listBinding.viewModel = viewModel
@@ -50,7 +50,8 @@ class CompositionListFragment : ErrorHandlingFragment<CompositionsListViewModel>
 		view.adapter = CompositionRecyclerViewAdapter(viewModel.getCompositions(), ::onItemSelected)
 		// would love to do the observing in the CompositionRecyclerViewAdapter,
 		// but it doesn't have a lifecycle.
-		viewModel.getCompositions().observe(this, Observer { view.adapter!!.notifyDataSetChanged() })
+		viewModel.getCompositions()
+			.observe(this, Observer { view.adapter!!.notifyDataSetChanged() })
 	}
 
 	private fun onItemSelected(comp: Composition) {
@@ -65,7 +66,7 @@ class CompositionListFragment : ErrorHandlingFragment<CompositionsListViewModel>
 	override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 		// TODO react to search for text option
 		// also move to viewmodel and pre-create bottom sheet?
-		when(item?.itemId) {
+		when (item?.itemId) {
 			R.id.filter_menu_option -> {
 				val bottomSheet = FilterListBottomDialogFragment()
 				bottomSheet.show(fragmentManager, null)

@@ -18,7 +18,6 @@ class RestServiceTest {
         assertNotEquals("There are no compositions", 0, compositions.size)
         for(comp in compositions) {
             assertNotEquals("Id of comp is -1", -1, comp.id)
-            assertEquals("The role count does not equal the amount of rolesLiveData", comp.roleCount, comp.roles.size)
             for(role in comp.roles) {
                 assertNotEquals("Id of role is -1", -1, role.id)
                 assertNotNull("Faction is null", role.faction)

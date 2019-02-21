@@ -31,9 +31,9 @@ class TestErrorViewModel {
 		}
 
 		assertNull("consent message not null",
-			errorViewModel.consentErrorMessage.value)
+			errorViewModel.consentErrorLiveEvent.value)
 		assertNull("disappearing message not null",
-			errorViewModel.disappearingErrorMessage.value)
+			errorViewModel.disappearingErrorLiveEvent.value)
 	}
 
 	@Test
@@ -46,7 +46,7 @@ class TestErrorViewModel {
 		}
 
 		assertEquals("disappearing message was not correct", "test",
-			errorViewModel.disappearingErrorMessage.value?.invoke(context))
+			errorViewModel.disappearingErrorLiveEvent.value?.invoke(context))
 	}
 
 	@Test
@@ -58,7 +58,7 @@ class TestErrorViewModel {
 
 	private fun getMockContextForStringResource(resourceId: Int, stringToReturn: String): Context {
 		val context = mockk<Context>()
-		every { context.getString(resourceId) } returns stringToReturn
+		every { context.getString(resourceId, *anyVararg()) } returns stringToReturn
 		return context
 	}
 }

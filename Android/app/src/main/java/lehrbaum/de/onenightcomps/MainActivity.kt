@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 	private lateinit var navView: NavigationView
 
 	private lateinit var navDrawerViewModel: NavDrawerViewModel
-	
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 		setUpLogoutAction()
 
 		// use the AppViewModel for navigation
-		AppViewModel.actionToPerform.observe(this, Observer { action ->
+		AppViewModel.nextActionLiveEvent.observe(this, Observer { action ->
 			navController.navigate(action)
 		})
 	}

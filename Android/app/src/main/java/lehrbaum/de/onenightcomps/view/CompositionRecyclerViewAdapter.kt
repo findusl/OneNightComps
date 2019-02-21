@@ -27,7 +27,7 @@ class CompositionRecyclerViewAdapter(
 		holder.iddView.text = comp.playerCount.toString()
 		holder.contentView.text = comp.name
 		holder.view.tag = comp
-		holder.view.setOnClickListener { view -> onItemSelectedListener(comp) }
+		holder.view.setOnClickListener { onItemSelectedListener(comp) }
 	}
 
 	override fun getItemCount(): Int = compositionsList.value?.size ?: 0

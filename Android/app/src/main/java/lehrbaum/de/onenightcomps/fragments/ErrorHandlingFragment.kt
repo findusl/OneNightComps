@@ -16,25 +16,25 @@ abstract class ErrorHandlingFragment<ViewModelType : ErrorViewModel> : Fragment(
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		viewModel = onCreateViewModel()
-		viewModel.disappearingErrorMessage.observe(this,
-			this::onDisappearingErrorMessageChanged)
-		viewModel.consentErrorMessage.observe(this,
-			this::onConsentErrorMessageChanged)
+		viewModel.disappearingErrorLiveEvent.observe(
+			this,
+			this::onDisappearingErrorMessageChanged
+		)
+		viewModel.consentErrorLiveEvent.observe(
+			this,
+			this::onConsentErrorMessageChanged
+		)
 	}
 
 	private fun onDisappearingErrorMessageChanged(textProvider: TextProvider) {
-		if(view != null && context != null)
+		if (view != null && context != null)
 			Snackbar.make(view!!, textProvider(context!!), Snackbar.LENGTH_LONG).show()
 	}
 
 	private fun onConsentErrorMessageChanged(textProvider: TextProvider) {
-		if(context == null) return
-		AlertDialog.Builder(context!!)
-			.setTitle("A problem occurred")
-			.setMessage(textProvider(context!!))
-			.setPositiveButton(android.R.string.ok, null)
-			.setIcon(android.R.drawable.ic_dialog_alert)
-			.show()
+		showDialog(DialogViewModel("A problem occurred",
+								   textProvider(context!!),
+								   DialogType.ALERT_DIALOG))
 	}
 
 	// could make an options menu option that shows a sticking error.
@@ -43,5 +43,5 @@ abstract class ErrorHandlingFragment<ViewModelType : ErrorViewModel> : Fragment(
 	/**
 	 * Called during onCreate.
 	 */
-	abstract fun onCreateViewModel() : ViewModelType
+	abstract fun onCreateViewModel(): ViewModelType
 }

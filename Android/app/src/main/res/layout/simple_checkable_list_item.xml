@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 	<data>
 		<variable name="viewModel"
-			type="lehrbaum.de.onenightcomps.view.SimpleCheckableListItemViewModel"/>
+			type="lehrbaum.de.onenightcomps.viewmodel.SimpleCheckableListItemViewModel"/>
 	</data>
 	<CheckedTextView
 		android:layout_width="match_parent"
@@ -15,5 +15,6 @@
 		android:checkMarkTint="@color/colorPrimary"
 		android:checked="@{viewModel.checked}"
 		android:text="@{viewModel.text}"
-		android:onClick="@{viewModel.onClick}"/>
+		android:onClick="@{viewModel.onClick}"
+		android:onLongClick="@{viewModel.onLongClick}"/>
 </layout>

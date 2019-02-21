@@ -29,6 +29,6 @@ fun <X, Y> LiveData<X>.map(mapper: ((X) -> Y)): LiveData<Y> {
 	return Transformations.map(this, mapper)
 }
 
-fun <T> LiveData<T>.observe(lifecycleOwner: LifecycleOwner, block : (T) -> Unit) {
+fun <T> LiveData<T>.observe(lifecycleOwner: LifecycleOwner, block: (T) -> Unit) {
 	observe(lifecycleOwner::getLifecycle, block)
 }

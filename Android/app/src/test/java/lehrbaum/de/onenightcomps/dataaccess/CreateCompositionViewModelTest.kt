@@ -2,7 +2,7 @@ package lehrbaum.de.onenightcomps.dataaccess
 
 import io.mockk.mockk
 import lehrbaum.de.onenightcomps.model.GameRole
-import lehrbaum.de.onenightcomps.view.CheckableGridViewModel
+import lehrbaum.de.onenightcomps.viewmodel.CheckableGridViewModel
 import lehrbaum.de.onenightcomps.viewmodel.CreateCompositionViewModel
 import org.junit.Before
 import org.junit.Test

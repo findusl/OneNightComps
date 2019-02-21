@@ -35,7 +35,7 @@
 	</fragment>
 	<fragment
 		android:id="@+id/createCompositionFragment"
-		android:name="lehrbaum.de.onenightcomps.fragments.CreateCompositionFragment"
+		android:name="lehrbaum.de.onenightcomps.fragments.CompositionCreateFragment"
 		android:label="CreateCompositionFragment" >
 		<action
 			android:id="@+id/action_createCompositionFragment_to_compositionListFragment"

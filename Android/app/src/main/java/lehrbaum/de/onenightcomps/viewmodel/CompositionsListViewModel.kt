@@ -22,9 +22,9 @@ class CompositionsListViewModel : ErrorViewModel(), SwipeRefreshLayout.OnRefresh
 	}
 
 	private fun loadCompositions() {
-		tryAndHandleExceptionAsync (showLoading = true) {
+		tryAndHandleExceptionAsync(showLoading = true) {
 			val comps = compositionRepository.getCompositionsAsync().await()
-			Arrays.sort(comps) {o1, o2 -> o1.roles.size.compareTo(o2.roles.size) }
+			Arrays.sort(comps) { o1, o2 -> o1.roles.size.compareTo(o2.roles.size) }
 			compositions.value = comps
 		}
 	}

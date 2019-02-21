@@ -4,6 +4,7 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 	<data>
 		<variable name="composition" type="lehrbaum.de.onenightcomps.model.Composition"/>
+
 	</data>
 	<androidx.core.widget.NestedScrollView
 		android:layout_width="match_parent"

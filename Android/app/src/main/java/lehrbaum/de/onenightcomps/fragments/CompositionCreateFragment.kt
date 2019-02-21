@@ -2,15 +2,20 @@ package lehrbaum.de.onenightcomps.fragments
 
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProviders
 import lehrbaum.de.onenightcomps.R
-import lehrbaum.de.onenightcomps.databinding.CreateCompositionFragmentBinding
+import lehrbaum.de.onenightcomps.databinding.CompositionCreateFragmentBinding
+import lehrbaum.de.onenightcomps.observe
 import lehrbaum.de.onenightcomps.viewmodel.CreateCompositionViewModel
 
-class CreateCompositionFragment : ErrorHandlingFragment<CreateCompositionViewModel>() {
+class CompositionCreateFragment : ErrorHandlingFragment<CreateCompositionViewModel>() {
 
 	override fun onCreateViewModel(): CreateCompositionViewModel {
-		return ViewModelProviders.of(this).get(CreateCompositionViewModel::class.java)
+		val viewModel = ViewModelProviders.of(this)
+			.get(CreateCompositionViewModel::class.java)
+		viewModel.dialogLiveEvent.showDialogOnChange(this)
+		return viewModel
 	}
 
 	override fun onCreateView(
@@ -18,14 +23,14 @@ class CreateCompositionFragment : ErrorHandlingFragment<CreateCompositionViewMod
 		savedInstanceState: Bundle?
 	): View? {
 		val binding =
-			CreateCompositionFragmentBinding.inflate(inflater, container, false)
+			CompositionCreateFragmentBinding.inflate(inflater, container, false)
 		setBindings(binding)
 
 		setHasOptionsMenu(true)
 		return binding.root
 	}
 
-	private fun setBindings(binding: CreateCompositionFragmentBinding) {
+	private fun setBindings(binding: CompositionCreateFragmentBinding) {
 		binding.lifecycleOwner = this
 		binding.lifecycleOwnerVar = this
 		binding.viewModel = viewModel
@@ -37,7 +42,7 @@ class CreateCompositionFragment : ErrorHandlingFragment<CreateCompositionViewMod
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-		if(item != null && item.itemId == R.id.create_menu_option) {
+		if (item != null && item.itemId == R.id.create_menu_option) {
 			viewModel.onCompletedOptionSelected()
 		}
 		return super.onOptionsItemSelected(item)

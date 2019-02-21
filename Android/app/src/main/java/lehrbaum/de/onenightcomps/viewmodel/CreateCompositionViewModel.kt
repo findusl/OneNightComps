@@ -2,15 +2,17 @@ package lehrbaum.de.onenightcomps.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import lehrbaum.de.onenightcomps.LiveEvent
 import lehrbaum.de.onenightcomps.R
 import lehrbaum.de.onenightcomps.dataaccess.CompositionRepository
 import lehrbaum.de.onenightcomps.dataaccess.RoleRepository
-import lehrbaum.de.onenightcomps.fragments.CreateCompositionFragmentDirections
+import lehrbaum.de.onenightcomps.fragments.CompositionCreateFragmentDirections
+import lehrbaum.de.onenightcomps.fragments.DialogType
+import lehrbaum.de.onenightcomps.fragments.DialogViewModel
 import lehrbaum.de.onenightcomps.inject
 import lehrbaum.de.onenightcomps.model.Composition
 import lehrbaum.de.onenightcomps.model.GameRole
 import lehrbaum.de.onenightcomps.model.MinimumCardCount
-import lehrbaum.de.onenightcomps.view.CheckableGridViewModel
 
 private const val TAG = "CreateCompositionVM"
 
@@ -18,6 +20,7 @@ class CreateCompositionViewModel : ErrorViewModel() {
 	val checkableGridViewModelLiveData = MutableLiveData<CheckableGridViewModel<GameRole>>()
 	val titleText = MutableLiveData<String>()
 	val descriptionText = MutableLiveData<String>()
+	val dialogLiveEvent = LiveEvent<DialogViewModel>()
 	private val compositionRepository: CompositionRepository by inject()
 	private val roleRepository: RoleRepository by inject()
 
@@ -33,7 +36,12 @@ class CreateCompositionViewModel : ErrorViewModel() {
 	}
 
 	private fun setRoles(roles: Array<GameRole>) {
-		checkableGridViewModelLiveData.value = CheckableGridViewModel(roles, GameRole::name)
+		val gridViewModel = CheckableGridViewModel(roles, GameRole::name, this::onGameRoleLongClick)
+		checkableGridViewModelLiveData.value = gridViewModel
+	}
+
+	private fun onGameRoleLongClick(role: GameRole) {
+		dialogLiveEvent.value = DialogViewModel(role.name, role.description, DialogType.INFO_DIALOG)
 	}
 
 	fun onCompletedOptionSelected() {
@@ -61,10 +69,11 @@ class CreateCompositionViewModel : ErrorViewModel() {
 		tryAndHandleExceptionAsync(showLoading = true) {
 			val result = compositionRepository.createCompositionAsync(comp).await()
 			if (result != -1) {
-				AppViewModel.performNavigationAction(CreateCompositionFragmentDirections
-					.actionCreateCompositionFragmentToCompositionListFragment())
-			}
-			else {
+				AppViewModel.performNavigationAction(
+					CompositionCreateFragmentDirections
+						.actionCreateCompositionFragmentToCompositionListFragment()
+				)
+			} else {
 				Log.wtf(TAG, "No exception but couldn't create composition: $comp")
 				//this shouldn't happen, it should have thrown an exception.
 				displayConsentErrorMessage(R.string.error_unexpected)

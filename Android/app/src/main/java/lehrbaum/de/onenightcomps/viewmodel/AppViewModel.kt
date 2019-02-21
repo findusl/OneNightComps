@@ -3,6 +3,7 @@ package lehrbaum.de.onenightcomps.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavDirections
+import lehrbaum.de.onenightcomps.LiveEvent
 import lehrbaum.de.onenightcomps.fragments.CompositionListFragmentDirections
 import lehrbaum.de.onenightcomps.model.Composition
 
@@ -15,10 +16,10 @@ import lehrbaum.de.onenightcomps.model.Composition
  * think about it. FIXME
  */
 object AppViewModel {
-	val actionToPerform = MutableLiveData<NavDirections>()
+	val nextActionLiveEvent = LiveEvent<NavDirections>()
 
 	fun performNavigationAction(action: NavDirections) {
-		actionToPerform.value = action
+		nextActionLiveEvent.value = action
 	}
 
 	//Should I let the calling class directly set the value of the live data? I did a bit of encapsulation.
@@ -29,7 +30,7 @@ object AppViewModel {
 
 	fun onCompositionSelected(selectedEntry: Composition) {
 		_selectedComposition.value = selectedEntry
-		actionToPerform.value = CompositionListFragmentDirections
+		nextActionLiveEvent.value = CompositionListFragmentDirections
 			.actionCompositionListFragmentToCompositionDetailFragment()
 	}
 }

@@ -15,21 +15,21 @@ private const val baseUrl = "https://lehrbaum.de/one_night_comps/"
 internal object RestServiceFactory {
 
 	fun getRestService(): RestService {
-		//return MockRestService()
-		return createRestService()
+		return MockRestService()
+		//return createRestService()
 	}
 
-	private fun createRestService(): RestService{
+	private fun createRestService(): RestService {
 
 		val client = OkHttpClient.Builder()
-				.addInterceptor(BasicAuthInterceptor())
-				.addLogger()
-				.build()
+			.addInterceptor(BasicAuthInterceptor())
+			.addLogger()
+			.build()
 		val retrofit = Retrofit.Builder()
-				.baseUrl(baseUrl)
-				.client(client)
-				.addConverterFactory(GsonConverterFactory.create(getGSON()))
-				.build()
+			.baseUrl(baseUrl)
+			.client(client)
+			.addConverterFactory(GsonConverterFactory.create(getGSON()))
+			.build()
 		return retrofit.create(RestService::class.java)
 	}
 
@@ -40,7 +40,7 @@ internal object RestServiceFactory {
 		return this
 	}
 
-	private fun getGSON() : Gson {
+	private fun getGSON(): Gson {
 		//need to alter this if I want null
 		return GsonBuilder().create()
 	}
@@ -51,15 +51,15 @@ internal object RestServiceFactory {
 		val userRepository: UserRepository by inject()
 
 		override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
-			if(userRepository.currentUser == null)
+			if (userRepository.currentUser == null)
 				return chain.proceed(chain.request())
 			val request = chain.request()
 			val authenticatedRequest = request.newBuilder()
-					.header("Authorization", credentialsFromCurrentUser()).build()
+				.header("Authorization", credentialsFromCurrentUser()).build()
 			return chain.proceed(authenticatedRequest)
 		}
 
-		fun credentialsFromCurrentUser() : String {
+		fun credentialsFromCurrentUser(): String {
 			val user = userRepository.currentUser!!
 			return Credentials.basic(user.username, user.passwordBase64)
 		}

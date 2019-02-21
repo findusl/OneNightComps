@@ -24,23 +24,23 @@ class LoginViewModel : ErrorViewModel() {
 
 	fun validateUsername(s: CharSequence, start: Int, before: Int, count: Int) {
 		//undo invalid username marking
-		if(!usernameValid.value!! && !username.value.isNullOrEmpty())
+		if (!usernameValid.value!! && !username.value.isNullOrEmpty())
 			usernameValid.value = true
 	}
 
 	fun validatePassword(s: CharSequence, start: Int, before: Int, count: Int) {
 		//undo invalid username marking
-		if(!passwordValid.value!! && !password.value.isNullOrEmpty())
+		if (!passwordValid.value!! && !password.value.isNullOrEmpty())
 			passwordValid.value = true
 	}
 
 	fun loginClicked(unused: View) {
 		//TODO show dialog or something
-		if(username.value.isNullOrEmpty()) {
+		if (username.value.isNullOrEmpty()) {
 			usernameValid.value = false
 			return
 		}
-		if(password.value.isNullOrEmpty()) {
+		if (password.value.isNullOrEmpty()) {
 			passwordValid.value = false
 			return
 		}
@@ -49,7 +49,8 @@ class LoginViewModel : ErrorViewModel() {
 			val result = userRepository.login(username.value!!, password.value!!)
 			if (result) {
 				AppViewModel.performNavigationAction(
-						LoginFragmentDirections.actionLoginFragmentToCompositionListFragment())
+					LoginFragmentDirections.actionLoginFragmentToCompositionListFragment()
+				)
 			} else {
 				displayConsentErrorMessage(R.string.warning_wrong_username_password)
 			}

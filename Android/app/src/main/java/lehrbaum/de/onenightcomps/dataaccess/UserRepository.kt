@@ -38,12 +38,14 @@ class UserRepository {
 					&& currentUser!!.username == userName
 					&& currentUser!!.id != id -> {
 				currentUser = currentUser!!.copy(id = id)
-				userListeners.forEach {it(currentUser)}
+				userListeners.forEach { it(currentUser) }
 				return true
 			}
 			else -> {
-				Log.w(TAG, "Successful login response but " +
-						"current user was in incorrect state.")
+				Log.w(
+					TAG, "Successful login response but " +
+							"current user was in incorrect state."
+				)
 				return false
 			}
 		}
@@ -56,9 +58,9 @@ class UserRepository {
 		return deferred
 	}
 
-	fun logout(){
+	fun logout() {
 		currentUser = null
-		userListeners.forEach{it(currentUser)}
+		userListeners.forEach { it(currentUser) }
 	}
 
 	private val userListeners = LinkedList<(User?) -> Unit>()
