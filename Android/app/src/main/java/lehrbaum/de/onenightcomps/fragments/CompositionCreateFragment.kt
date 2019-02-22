@@ -2,11 +2,9 @@ package lehrbaum.de.onenightcomps.fragments
 
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProviders
 import lehrbaum.de.onenightcomps.R
-import lehrbaum.de.onenightcomps.databinding.CompositionCreateFragmentBinding
-import lehrbaum.de.onenightcomps.observe
+import lehrbaum.de.onenightcomps.databinding.FragmentCompositionCreateBinding
 import lehrbaum.de.onenightcomps.viewmodel.CreateCompositionViewModel
 
 class CompositionCreateFragment : ErrorHandlingFragment<CreateCompositionViewModel>() {
@@ -23,14 +21,14 @@ class CompositionCreateFragment : ErrorHandlingFragment<CreateCompositionViewMod
 		savedInstanceState: Bundle?
 	): View? {
 		val binding =
-			CompositionCreateFragmentBinding.inflate(inflater, container, false)
+			FragmentCompositionCreateBinding.inflate(inflater, container, false)
 		setBindings(binding)
 
 		setHasOptionsMenu(true)
 		return binding.root
 	}
 
-	private fun setBindings(binding: CompositionCreateFragmentBinding) {
+	private fun setBindings(binding: FragmentCompositionCreateBinding) {
 		binding.lifecycleOwner = this
 		binding.lifecycleOwnerVar = this
 		binding.viewModel = viewModel

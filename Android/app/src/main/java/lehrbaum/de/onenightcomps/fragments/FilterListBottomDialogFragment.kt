@@ -15,7 +15,7 @@ class FilterListBottomDialogFragment : BottomSheetDialogFragment() {
 		savedInstanceState: Bundle?
 	): View? {
 		return inflater.inflate(
-			R.layout.filter_list_bottom_sheet, container,
+			R.layout.bottom_sheet_filter_list, container,
 			false
 		)
 	}

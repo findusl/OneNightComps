@@ -9,7 +9,7 @@
 		android:id="@+id/compositionListFragment"
 		android:name="lehrbaum.de.onenightcomps.fragments.CompositionListFragment"
 		android:label="@string/role_comps_menu"
-		tools:layout="@layout/composition_list_fragment">
+		tools:layout="@layout/fragment_composition_list">
 		<action
 			android:id="@+id/action_compositionListFragment_to_compositionDetailFragment"
 			app:destination="@id/compositionDetailFragment"
@@ -20,12 +20,12 @@
 		android:id="@+id/compositionDetailFragment"
 		android:name="lehrbaum.de.onenightcomps.fragments.CompositionDetailFragment"
 		android:label="@string/comp_detail_label"
-		tools:layout="@layout/composition_detail"/>
+		tools:layout="@layout/fragment_composition_detail"/>
 
 	<fragment android:id="@+id/loginFragment"
 		android:name="lehrbaum.de.onenightcomps.fragments.LoginFragment"
 		android:label="@string/action_title_login"
-		tools:layout="@layout/login_fragment">
+		tools:layout="@layout/fragment_login">
 		<action
 			android:id="@+id/action_loginFragment_to_compositionListFragment"
 			app:destination="@id/compositionListFragment"

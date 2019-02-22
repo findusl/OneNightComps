@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import lehrbaum.de.onenightcomps.R
-import lehrbaum.de.onenightcomps.databinding.CompositionListFragmentBinding
+import lehrbaum.de.onenightcomps.databinding.FragmentCompositionListBinding
 import lehrbaum.de.onenightcomps.model.Composition
 import lehrbaum.de.onenightcomps.observe
 import lehrbaum.de.onenightcomps.view.CompositionRecyclerViewAdapter
@@ -32,7 +32,7 @@ class CompositionListFragment : ErrorHandlingFragment<CompositionsListViewModel>
 		savedInstanceState: Bundle?
 	): View? {
 		val listBinding =
-			CompositionListFragmentBinding.inflate(inflater, container, false)
+			FragmentCompositionListBinding.inflate(inflater, container, false)
 		listBinding.viewModel = viewModel
 		// Set the adapter
 		setUpRecyclerView(listBinding.list)
@@ -40,7 +40,7 @@ class CompositionListFragment : ErrorHandlingFragment<CompositionsListViewModel>
 		return listBinding.root
 	}
 
-	private fun setUpSwipeRefreshLayout(listBinding: CompositionListFragmentBinding) {
+	private fun setUpSwipeRefreshLayout(listBinding: FragmentCompositionListBinding) {
 		viewModel.isLoading.observe(this, listBinding.swipeRefreshLayout::setRefreshing)
 		listBinding.swipeRefreshLayout.setOnRefreshListener(viewModel)
 	}

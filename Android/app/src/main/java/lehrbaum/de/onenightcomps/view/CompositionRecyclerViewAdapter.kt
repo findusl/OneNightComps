@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.lifecycle.LiveData
 import lehrbaum.de.onenightcomps.R
 
-import kotlinx.android.synthetic.main.composition_list_item.view.*
+import kotlinx.android.synthetic.main.fragment_compositions_list.view.*
 import lehrbaum.de.onenightcomps.model.Composition
 
 class CompositionRecyclerViewAdapter(
@@ -18,7 +18,7 @@ class CompositionRecyclerViewAdapter(
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 		val view = LayoutInflater.from(parent.context)
-			.inflate(R.layout.composition_list_item, parent, false)
+			.inflate(R.layout.fragment_compositions_list, parent, false)
 		return ViewHolder(view)
 	}
 
