@@ -8,17 +8,20 @@
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		tools:context=".fragments.LoginFragment"
 		android:orientation="vertical"
+		android:layout_marginTop="@dimen/activity_vertical_margin"
+		tools:context=".fragments.LoginFragment"
 		tools:targetApi="o"
 		>
 
 		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/usernameField"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:hint="@string/username"
 			app:hintEnabled="true"
-			app:errorEnabled="@{!viewModel.usernameValid}"
+			app:errorEnabled="true"
+			app:errorText="Hi"
 			>
 			<!--app:errorText="Please provide a username."-->
 			<com.google.android.material.textfield.TextInputEditText
@@ -27,8 +30,6 @@
 				android:autofillHints="username"
 				android:inputType="text"
 				android:text="@={viewModel.username}"
-				android:onTextChanged="@{viewModel::validateUsername}"
-
 				/>
 		</com.google.android.material.textfield.TextInputLayout>
 
@@ -37,7 +38,7 @@
 			android:layout_height="wrap_content"
 			android:hint="@string/password"
 			app:passwordToggleEnabled="true"
-			app:errorEnabled="@{!viewModel.passwordValid}"
+			app:errorEnabled="true"
 			>
 			<!--app:errorText="Please provide a password."-->
 			<com.google.android.material.textfield.TextInputEditText
@@ -46,8 +47,6 @@
 				android:autofillHints="password"
 				android:inputType="textPassword"
 				android:text="@={viewModel.password}"
-				android:onTextChanged="@{viewModel::validatePassword}"
-
 				/>
 		</com.google.android.material.textfield.TextInputLayout>
 
