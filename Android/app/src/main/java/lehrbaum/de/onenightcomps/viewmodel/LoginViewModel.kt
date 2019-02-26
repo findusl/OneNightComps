@@ -14,6 +14,8 @@ class LoginViewModel : ErrorViewModel() {
 	val username = MutableLiveData<String>()
 	val password = MutableLiveData<String>()
 
+	val name = "Hi"
+
 	private val userRepository: UserRepository by inject()
 
 	init {

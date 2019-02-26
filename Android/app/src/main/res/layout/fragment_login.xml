@@ -21,7 +21,7 @@
 			android:hint="@string/username"
 			app:hintEnabled="true"
 			app:errorEnabled="true"
-			app:errorText="Hi"
+			app:errorText="@{viewModel.name}"
 			>
 			<!--app:errorText="Please provide a username."-->
 			<com.google.android.material.textfield.TextInputEditText
