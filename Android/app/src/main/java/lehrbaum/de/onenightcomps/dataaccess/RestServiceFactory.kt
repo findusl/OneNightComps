@@ -15,8 +15,8 @@ private const val baseUrl = "https://lehrbaum.de/one_night_comps/"
 internal object RestServiceFactory {
 
 	fun getRestService(): RestService {
-		return MockRestService()
-		//return createRestService()
+		//return MockRestService()
+		return createRestService()
 	}
 
 	private fun createRestService(): RestService {

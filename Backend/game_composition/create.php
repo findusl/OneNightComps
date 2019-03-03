@@ -20,8 +20,8 @@ try {
 
     $content = json_decode(file_get_contents('php://input'), true);
     
-    $insertCompStmt = $database->prepare("INSERT INTO game_composition (name, description,difficulty_level,creator_user_id,last_modified) VALUES (?,?,?,?,?,?);");
-    $insertCompStmt->bind_param("ssiiii", $content['name'], $content['description'], $content['difficultyLevel'], $userId, time());
+    $insertCompStmt = $database->prepare("INSERT INTO game_composition (name,description,difficulty_level,creator_user_id,last_modified) VALUES (?,?,?,?,?);");
+    $insertCompStmt->bind_param("ssiii", $content['name'], $content['description'], $content['difficultyLevel'], $userId, time());
     $insertCompStmt->execute();
     
     $createdId = $insertCompStmt->insert_id;
@@ -32,7 +32,7 @@ try {
     $roleId = $roles[$i++]['id'];
     $insertRoleReferenceStmt->bind_param("ii",$createdId,$roleId);
     $insertRoleReferenceStmt->execute();
-    while($i < $content['roleCount']) {
+    while($i < sizeof($roles)) {
         $roleId = $roles[$i++]['id'];
         $insertRoleReferenceStmt->execute();
     }
