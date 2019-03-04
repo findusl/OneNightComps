@@ -38,4 +38,20 @@ try {
 } catch(mysqli_sql_exception $exception){
     echo encodeResult("", $exception);
 }
+
+function findCompWithRoles($database, $roleIds) {
+    $rolesAsString = $database->rescape_string(implode(',', $roleIds));
+    $compositionQuery = "SELECT game_composition_id FROM game_composition_role g1 WHERE game_role_id in (";
+    $compositionQuery .= $rolesAsString;
+    $compositionQuery .= ") AND NOT EXISTS (SELECT * FROM game_composition_role WHERE game_composition_id = g1.game_composition_id AND game_role_id NOT IN (";
+    $compositionQuery .= $rolesAsString;
+    $compositionQuery .= ")) GROUP BY game_composition_id HAVING COUNT(game_role_id) = ";
+    $compositionQuery .= sizeof($roleIds);
+    $queryCompositionResult = $database->query($compositionsQuery);
+    
+    if ($row = $queryCompositionsResult->fetch_assoc()) {
+        return $row['game_composition_id'];
+    }
+    return -1;
+}
 ?>
