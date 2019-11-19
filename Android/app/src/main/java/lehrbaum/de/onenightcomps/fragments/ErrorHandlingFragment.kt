@@ -1,7 +1,6 @@
 package lehrbaum.de.onenightcomps.fragments
 
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import lehrbaum.de.onenightcomps.observe
@@ -26,15 +25,22 @@ abstract class ErrorHandlingFragment<ViewModelType : ErrorViewModel> : Fragment(
 		)
 	}
 
-	private fun onDisappearingErrorMessageChanged(textProvider: TextProvider) {
-		if (view != null && context != null)
-			Snackbar.make(view!!, textProvider(context!!), Snackbar.LENGTH_LONG).show()
+	private fun onDisappearingErrorMessageChanged(textProvider: TextProvider?) {
+		val view = view ?: return
+		val context = context ?: return
+		if (textProvider == null) return
+		Snackbar.make(view, textProvider(context), Snackbar.LENGTH_LONG).show()
 	}
 
-	private fun onConsentErrorMessageChanged(textProvider: TextProvider) {
-		showDialog(DialogViewModel("A problem occurred",
-								   textProvider(context!!),
-								   DialogType.ALERT_DIALOG))
+	private fun onConsentErrorMessageChanged(textProvider: TextProvider?) {
+		if (textProvider == null) return
+		showDialog(
+			DialogViewModel(
+				"A problem occurred",
+				textProvider(context!!),
+				DialogType.ALERT_DIALOG
+			)
+		)
 	}
 
 	// could make an options menu option that shows a sticking error.

@@ -5,6 +5,7 @@ import kotlinx.coroutines.Deferred
 import lehrbaum.de.onenightcomps.inject
 import lehrbaum.de.onenightcomps.model.Composition
 
+@Suppress("unused")
 private const val TAG = "CompositionRepository"
 
 class CompositionRepository {

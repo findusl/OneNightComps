@@ -34,13 +34,13 @@ class CompositionCreateFragment : ErrorHandlingFragment<CreateCompositionViewMod
 		binding.viewModel = viewModel
 	}
 
-	override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+	override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 		super.onCreateOptionsMenu(menu, inflater)
-		inflater?.inflate(R.menu.create_composition_options, menu)
+		inflater.inflate(R.menu.create_composition_options, menu)
 	}
 
-	override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-		if (item != null && item.itemId == R.id.create_menu_option) {
+	override fun onOptionsItemSelected(item: MenuItem): Boolean {
+		if (item.itemId == R.id.create_menu_option) {
 			viewModel.onCompletedOptionSelected()
 		}
 		return super.onOptionsItemSelected(item)

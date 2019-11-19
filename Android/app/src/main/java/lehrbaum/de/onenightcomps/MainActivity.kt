@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -56,9 +55,9 @@ class MainActivity : AppCompatActivity() {
 		setUpLogoutAction()
 
 		// use the AppViewModel for navigation
-		AppViewModel.nextActionLiveEvent.observe(this, Observer { action ->
-			navController.navigate(action)
-		})
+		AppViewModel.nextActionLiveEvent.observe(this) { action ->
+			action?.let { navController.navigate(it) }
+		}
 	}
 
 	private fun setUpLogoutAction() {

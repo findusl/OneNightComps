@@ -30,23 +30,30 @@ class TestErrorViewModel {
 
 		}
 
-		assertNull("consent message not null",
-			errorViewModel.consentErrorLiveEvent.value)
-		assertNull("disappearing message not null",
-			errorViewModel.disappearingErrorLiveEvent.value)
+		assertNull(
+			"consent message not null",
+			errorViewModel.consentErrorLiveEvent.value
+		)
+		assertNull(
+			"disappearing message not null",
+			errorViewModel.disappearingErrorLiveEvent.value
+		)
 	}
 
 	@Test
 	fun testTryAndHandleException_NetworkUnavailable_ShowErrorMessage() {
 		val context = getMockContextForStringResource(
-			R.string.warning_no_internet_connection, "test")
+			R.string.warning_no_internet_connection, "test"
+		)
 
 		errorViewModel.tryAndHandleException {
 			throw NetworkUnavailableException()
 		}
 
-		assertEquals("disappearing message was not correct", "test",
-			errorViewModel.disappearingErrorLiveEvent.value?.invoke(context))
+		assertEquals(
+			"disappearing message was not correct", "test",
+			errorViewModel.disappearingErrorLiveEvent.value?.invoke(context)
+		)
 	}
 
 	@Test

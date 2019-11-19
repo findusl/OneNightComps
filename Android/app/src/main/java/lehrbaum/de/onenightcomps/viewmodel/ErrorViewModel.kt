@@ -50,11 +50,11 @@ open class ErrorViewModel : ViewModel() {
 	}
 
 	internal fun <ReturnType> tryAndHandleException(block: () -> ReturnType): ReturnType? {
-		try {
-			return block()
+		return try {
+			block()
 		} catch (e: DataAccessException) {
 			handleDataAccessException(e)
-			return null
+			null
 		}
 	}
 
@@ -72,7 +72,7 @@ open class ErrorViewModel : ViewModel() {
 	/**
 	 * @see Context.getString
 	 */
-	protected fun displayDisappearingErrorMessage(
+	private fun displayDisappearingErrorMessage(
 		errorMessageStringResource: Int,
 		vararg formatArgs: Any
 	) {

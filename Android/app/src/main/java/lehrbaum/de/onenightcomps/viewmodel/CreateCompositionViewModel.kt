@@ -51,7 +51,7 @@ class CreateCompositionViewModel : ErrorViewModel() {
 			return
 		}
 
-		val roles = checkableGridViewModelLiveData.value!!.getSelectedItems()
+		val roles = (checkableGridViewModelLiveData.value ?: return).getSelectedItems()
 		if (roles.size < MinimumCardCount) {
 			Log.w(TAG, "Not enough roles selected, only " + roles.size)
 			displayConsentErrorMessage(R.string.warning_not_enough_roles_selected, MinimumCardCount)

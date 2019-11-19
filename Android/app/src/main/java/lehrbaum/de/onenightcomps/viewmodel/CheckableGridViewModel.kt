@@ -34,7 +34,7 @@ class SimpleCheckableListItemViewModel<ItemType>(val item: ItemType, text: Strin
 	}
 
 	override fun onClick(v: View) {
-		checked.value = !checked.value!!
+		checked.value = !(checked.value ?: return)
 	}
 
 	override fun onLongClick(v: View?): Boolean {

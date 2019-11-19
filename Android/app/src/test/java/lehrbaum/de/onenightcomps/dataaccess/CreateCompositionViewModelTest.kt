@@ -8,7 +8,7 @@ import org.junit.Before
 import org.junit.Test
 
 class CreateCompositionViewModelTest {
-	private lateinit var mockCheckableGridViewModel : CheckableGridViewModel<GameRole>
+	private lateinit var mockCheckableGridViewModel: CheckableGridViewModel<GameRole>
 	private lateinit var createCompositionViewModel: CreateCompositionViewModel
 
 	@Before

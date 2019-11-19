@@ -72,7 +72,7 @@ private class CallbackImpl<ResultType>(val deferred: CompletableDeferred<ResultT
 	) {
 		if (response.isSuccessful && response.body() != null) {
 			val body = response.body()!!
-			if (!body.errorMessage.isEmpty()) {
+			if (body.errorMessage.isNotEmpty()) {
 				val throwable = handleErrorMessage(body.errorMessage)
 				if (throwable != null)
 					deferred.completeExceptionally(throwable)
