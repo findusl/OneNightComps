@@ -40,11 +40,11 @@ open class RoleGridView @JvmOverloads constructor(
 	}
 
 	protected open fun generateAdapter() {
-		if(itemSource != null && roleClickListener != null)
-			adapter = ArrayAdapter(context, itemSource ?: arrayOf(), GameRole::name, roleClickListener!!)
+		val roleClickListener = roleClickListener ?: return
+		val items = itemSource ?: arrayOf()
+		if (itemSource != null)
+			adapter = ArrayAdapter(context, items, GameRole::name, roleClickListener)
 	}
-
-
 }
 
 class ArrayAdapter<ItemType>(
@@ -53,7 +53,7 @@ class ArrayAdapter<ItemType>(
 	private val converter: ((ItemType) -> String),
 	private val clickListener: (ItemType) -> Unit
 ) : RecyclerView.Adapter<SimpleViewHolder>() {
-	val inflater: LayoutInflater = LayoutInflater.from(context)
+	private val inflater: LayoutInflater = LayoutInflater.from(context)
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleViewHolder {
 		val viewHolder = SimpleViewHolder(

@@ -3,10 +3,16 @@ package lehrbaum.de.onenightcomps.viewmodel
 import android.content.Context
 import android.view.View
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import com.nhaarman.mockitokotlin2.*
 import io.mockk.every
 import io.mockk.mockk
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import lehrbaum.de.onenightcomps.R
+import lehrbaum.de.onenightcomps.TextProvider
 import lehrbaum.de.onenightcomps.dataaccess.NetworkUnavailableException
+import lehrbaum.de.onenightcomps.rules.CoroutinesRule
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -17,36 +23,50 @@ class TestErrorViewModel {
 	@JvmField
 	val instantTaskExecutorRule = InstantTaskExecutorRule()
 
+	@ExperimentalCoroutinesApi
+	@Rule
+	@JvmField
+	val coroutinesRule = CoroutinesRule()
+
 	private lateinit var errorViewModel: ErrorViewModel
+	private val errorViewModelDelegate = mock<GenericErrorViewModel.Delegate>()
 
 	@Before
 	fun setUp() {
 		errorViewModel = ErrorViewModel()
+		val lifecycle = mock<Lifecycle>() {
+			on { currentState } doReturn Lifecycle.State.RESUMED
+		}
+		errorViewModel.setDelegate(errorViewModelDelegate, LifecycleOwner { lifecycle })
 	}
 
 	@Test
 	fun testTryAndHandleException_Default_ShouldNotSetMessage() {
-		errorViewModel.tryAndHandleException {
+		errorViewModel.tryAndHandleException {}
 
-		}
-
-		assertNull("consent message not null",
-			errorViewModel.consentErrorLiveEvent.value)
-		assertNull("disappearing message not null",
-			errorViewModel.disappearingErrorLiveEvent.value)
+		verify(errorViewModelDelegate, never()).showConsentError(any())
+		verify(errorViewModelDelegate, never()).showDisappearingError(any())
 	}
 
 	@Test
 	fun testTryAndHandleException_NetworkUnavailable_ShowErrorMessage() {
 		val context = getMockContextForStringResource(
-			R.string.warning_no_internet_connection, "test")
+			R.string.warning_no_internet_connection, "test"
+		)
 
 		errorViewModel.tryAndHandleException {
 			throw NetworkUnavailableException()
 		}
 
-		assertEquals("disappearing message was not correct", "test",
-			errorViewModel.disappearingErrorLiveEvent.value?.invoke(context))
+		val captor = argumentCaptor<TextProvider>()
+
+		verify(errorViewModelDelegate).showDisappearingError(captor.capture())
+
+		assertEquals(
+			"disappearing message was not correct",
+			"test",
+			captor.firstValue.invoke(context)
+		)
 	}
 
 	@Test

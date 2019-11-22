@@ -1,5 +1,6 @@
 package lehrbaum.de.onenightcomps
 
+import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
@@ -8,8 +9,11 @@ import org.koin.core.parameter.emptyParameterDefinition
 import org.koin.core.scope.Scope
 import org.koin.standalone.StandAloneContext
 
-//Not such a fan of constructor injection with viewmodels, it is to tight coupling.
-//I prefer simple injecting everywhere, these functions allow that.
+// Not such a fan of constructor injection with viewmodels, it is to tight coupling.
+// I prefer simple injecting everywhere, these functions allow that.
+// TODO revert this, it forces me to mock koin in unit tests
+
+typealias TextProvider = (c: Context) -> String
 
 inline fun <reified T : Any> inject(
 	name: String = "",

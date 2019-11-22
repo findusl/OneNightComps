@@ -7,13 +7,19 @@ import lehrbaum.de.onenightcomps.R
 import lehrbaum.de.onenightcomps.databinding.FragmentCompositionCreateBinding
 import lehrbaum.de.onenightcomps.viewmodel.CreateCompositionViewModel
 
-class CompositionCreateFragment : ErrorHandlingFragment<CreateCompositionViewModel>() {
+class CompositionCreateFragment : ErrorHandlingFragment<CreateCompositionViewModel>(),
+                                  CreateCompositionViewModel.Delegate {
 
 	override fun onCreateViewModel(): CreateCompositionViewModel {
 		val viewModel = ViewModelProviders.of(this)
 			.get(CreateCompositionViewModel::class.java)
-		viewModel.dialogLiveEvent.showDialogOnChange(this)
+
+		viewModel.setDelegate(this, this)
 		return viewModel
+	}
+
+	override fun showInfoDialog(name: String, message: String) {
+		showDialog(DialogViewModel(name, message, DialogType.INFO_DIALOG))
 	}
 
 	override fun onCreateView(
@@ -34,13 +40,13 @@ class CompositionCreateFragment : ErrorHandlingFragment<CreateCompositionViewMod
 		binding.viewModel = viewModel
 	}
 
-	override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+	override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 		super.onCreateOptionsMenu(menu, inflater)
-		inflater?.inflate(R.menu.create_composition_options, menu)
+		inflater.inflate(R.menu.create_composition_options, menu)
 	}
 
-	override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-		if (item != null && item.itemId == R.id.create_menu_option) {
+	override fun onOptionsItemSelected(item: MenuItem): Boolean {
+		if (item.itemId == R.id.create_menu_option) {
 			viewModel.onCompletedOptionSelected()
 		}
 		return super.onOptionsItemSelected(item)

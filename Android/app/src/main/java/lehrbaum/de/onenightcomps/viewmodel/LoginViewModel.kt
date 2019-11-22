@@ -5,6 +5,7 @@ import android.widget.EditText
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.textfield.TextInputLayout
+import androidx.lifecycle.MutableNonNullLiveData
 import lehrbaum.de.onenightcomps.R
 import lehrbaum.de.onenightcomps.dataaccess.UserRepository
 import lehrbaum.de.onenightcomps.fragments.LoginFragmentDirections
@@ -31,7 +32,7 @@ class LoginViewModel : ErrorViewModel() {
 			return
 
 		tryAndHandleExceptionAsync {
-			val result = userRepository.login(username.value!!, password.value!!)
+			val result = userRepository.login(username.value ?: "", password.value ?: "")
 			if (result) {
 				AppViewModel.performNavigationAction(
 					LoginFragmentDirections.actionLoginFragmentToCompositionListFragment()

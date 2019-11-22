@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -21,7 +21,7 @@ import lehrbaum.de.onenightcomps.viewmodel.AppViewModel
 import lehrbaum.de.onenightcomps.viewmodel.NavDrawerViewModel
 import org.koin.android.ext.android.startKoin
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AppViewModel.Delegate {
 
 	private lateinit var drawerLayout: DrawerLayout
 	private lateinit var appBarConfiguration: AppBarConfiguration
@@ -54,11 +54,11 @@ class MainActivity : AppCompatActivity() {
 		navView.setupWithNavController(navController)
 		navDrawerViewModel.initWithItemVisibilityToggler(this::setMenuItemVisibility)
 		setUpLogoutAction()
+		AppViewModel.setDelegate(this, this)
+	}
 
-		// use the AppViewModel for navigation
-		AppViewModel.nextActionLiveEvent.observe(this, Observer { action ->
-			navController.navigate(action)
-		})
+	override fun performNavigation(navDirections: NavDirections) {
+		navController.navigate(navDirections)
 	}
 
 	private fun setUpLogoutAction() {

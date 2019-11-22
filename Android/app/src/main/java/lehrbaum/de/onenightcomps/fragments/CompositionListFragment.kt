@@ -2,7 +2,6 @@ package lehrbaum.de.onenightcomps.fragments
 
 import android.os.Bundle
 import android.view.*
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -51,25 +50,25 @@ class CompositionListFragment : ErrorHandlingFragment<CompositionsListViewModel>
 		// would love to do the observing in the CompositionRecyclerViewAdapter,
 		// but it doesn't have a lifecycle.
 		viewModel.getCompositions()
-			.observe(this, Observer { view.adapter!!.notifyDataSetChanged() })
+			.observe(this) { view.adapter?.notifyDataSetChanged() }
 	}
 
 	private fun onItemSelected(comp: Composition) {
 		appViewModel.onCompositionSelected(comp)
 	}
 
-	override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+	override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 		super.onCreateOptionsMenu(menu, inflater)
-		inflater?.inflate(R.menu.composition_list_options, menu)
+		inflater.inflate(R.menu.composition_list_options, menu)
 	}
 
-	override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		// TODO react to search for text option
 		// also move to viewmodel and pre-create bottom sheet?
-		when (item?.itemId) {
+		when (item.itemId) {
 			R.id.filter_menu_option -> {
 				val bottomSheet = FilterListBottomDialogFragment()
-				bottomSheet.show(fragmentManager, null)
+				fragmentManager?.let { bottomSheet.show(it, null) }
 			}
 		}
 		return super.onOptionsItemSelected(item)

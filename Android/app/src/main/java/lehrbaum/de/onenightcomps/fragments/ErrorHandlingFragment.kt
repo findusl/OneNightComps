@@ -1,40 +1,34 @@
 package lehrbaum.de.onenightcomps.fragments
 
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
-import lehrbaum.de.onenightcomps.observe
-import lehrbaum.de.onenightcomps.viewmodel.ErrorViewModel
-import lehrbaum.de.onenightcomps.viewmodel.TextProvider
+import lehrbaum.de.onenightcomps.TextProvider
+import lehrbaum.de.onenightcomps.viewmodel.GenericErrorViewModel
 
 
-abstract class ErrorHandlingFragment<ViewModelType : ErrorViewModel> : Fragment() {
+abstract class ErrorHandlingFragment<ViewModelType : GenericErrorViewModel<*>> :
+		Fragment(), GenericErrorViewModel.Delegate {
+
 	protected lateinit var viewModel: ViewModelType
 		private set
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		viewModel = onCreateViewModel()
-		viewModel.disappearingErrorLiveEvent.observe(
-			this,
-			this::onDisappearingErrorMessageChanged
-		)
-		viewModel.consentErrorLiveEvent.observe(
-			this,
-			this::onConsentErrorMessageChanged
-		)
 	}
 
-	private fun onDisappearingErrorMessageChanged(textProvider: TextProvider) {
-		if (view != null && context != null)
-			Snackbar.make(view!!, textProvider(context!!), Snackbar.LENGTH_LONG).show()
+	override fun showDisappearingError(message: TextProvider) {
+		val view = view ?: return
+		val context = context ?: return
+		Snackbar.make(view, message(context), Snackbar.LENGTH_LONG).show()
 	}
 
-	private fun onConsentErrorMessageChanged(textProvider: TextProvider) {
-		showDialog(DialogViewModel("A problem occurred",
-								   textProvider(context!!),
-								   DialogType.ALERT_DIALOG))
+	override fun showConsentError(message: TextProvider) {
+		val context = context ?: return
+		showDialog(
+			DialogViewModel("A problem occurred", message(context), DialogType.ALERT_DIALOG)
+		)
 	}
 
 	// could make an options menu option that shows a sticking error.

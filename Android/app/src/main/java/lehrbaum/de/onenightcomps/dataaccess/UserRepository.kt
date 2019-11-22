@@ -28,27 +28,25 @@ class UserRepository {
 
 	@Synchronized
 	private fun handleLoginResponse(userName: String, id: Int): Boolean {
-		when {
-			id == -1 -> {
-				currentUser = null
-				return false
-			}
+		if (id == -1) {
+			currentUser = null
+			return false
+		}
+		currentUser?.let {
 			//make sure no other login operations happened meanwhile
-			currentUser != null
-					&& currentUser!!.username == userName
-					&& currentUser!!.id != id -> {
-				currentUser = currentUser!!.copy(id = id)
+			if (it.username == userName
+				&& it.id != id
+			) {
+				currentUser = it.copy(id = id)
 				userListeners.forEach { it(currentUser) }
 				return true
 			}
-			else -> {
-				Log.w(
-					TAG, "Successful login response but " +
-							"current user was in incorrect state."
-				)
-				return false
-			}
 		}
+		Log.w(
+			TAG, "Successful login response but " +
+					"current user was in incorrect state."
+		)
+		return false
 	}
 
 	fun registerAsync(userName: String, password: String, eMail: String): Deferred<Boolean> {

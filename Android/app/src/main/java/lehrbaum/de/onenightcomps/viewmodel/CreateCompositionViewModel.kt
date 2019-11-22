@@ -2,13 +2,10 @@ package lehrbaum.de.onenightcomps.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import lehrbaum.de.onenightcomps.LiveEvent
 import lehrbaum.de.onenightcomps.R
 import lehrbaum.de.onenightcomps.dataaccess.CompositionRepository
 import lehrbaum.de.onenightcomps.dataaccess.RoleRepository
 import lehrbaum.de.onenightcomps.fragments.CompositionCreateFragmentDirections
-import lehrbaum.de.onenightcomps.fragments.DialogType
-import lehrbaum.de.onenightcomps.fragments.DialogViewModel
 import lehrbaum.de.onenightcomps.inject
 import lehrbaum.de.onenightcomps.model.Composition
 import lehrbaum.de.onenightcomps.model.GameRole
@@ -16,11 +13,10 @@ import lehrbaum.de.onenightcomps.model.MinimumCardCount
 
 private const val TAG = "CreateCompositionVM"
 
-class CreateCompositionViewModel : ErrorViewModel() {
+class CreateCompositionViewModel : GenericErrorViewModel<CreateCompositionViewModel.Delegate>() {
 	val checkableGridViewModelLiveData = MutableLiveData<CheckableGridViewModel<GameRole>>()
 	val titleText = MutableLiveData<String>()
 	val descriptionText = MutableLiveData<String>()
-	val dialogLiveEvent = LiveEvent<DialogViewModel>()
 	private val compositionRepository: CompositionRepository by inject()
 	private val roleRepository: RoleRepository by inject()
 
@@ -41,7 +37,7 @@ class CreateCompositionViewModel : ErrorViewModel() {
 	}
 
 	private fun onGameRoleLongClick(role: GameRole) {
-		dialogLiveEvent.value = DialogViewModel(role.name, role.description, DialogType.INFO_DIALOG)
+		delegate?.showInfoDialog(role.name, role.description)
 	}
 
 	fun onCompletedOptionSelected() {
@@ -51,7 +47,7 @@ class CreateCompositionViewModel : ErrorViewModel() {
 			return
 		}
 
-		val roles = checkableGridViewModelLiveData.value!!.getSelectedItems()
+		val roles = (checkableGridViewModelLiveData.value ?: return).getSelectedItems()
 		if (roles.size < MinimumCardCount) {
 			Log.w(TAG, "Not enough roles selected, only " + roles.size)
 			displayConsentErrorMessage(R.string.warning_not_enough_roles_selected, MinimumCardCount)
@@ -79,5 +75,9 @@ class CreateCompositionViewModel : ErrorViewModel() {
 				displayConsentErrorMessage(R.string.error_unexpected)
 			}
 		}
+	}
+
+	interface Delegate : GenericErrorViewModel.Delegate {
+		fun showInfoDialog(name: String, message: String)
 	}
 }

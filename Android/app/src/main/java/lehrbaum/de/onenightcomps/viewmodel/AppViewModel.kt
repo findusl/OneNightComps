@@ -3,7 +3,7 @@ package lehrbaum.de.onenightcomps.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavDirections
-import lehrbaum.de.onenightcomps.LiveEvent
+import com.bmw.connride.ui.viewmodel.DelegatingViewModel
 import lehrbaum.de.onenightcomps.fragments.CompositionListFragmentDirections
 import lehrbaum.de.onenightcomps.model.Composition
 
@@ -15,11 +15,9 @@ import lehrbaum.de.onenightcomps.model.Composition
  * the view even as a listener. So the reference to Resolution for example might be a problem. Should
  * think about it. FIXME
  */
-object AppViewModel {
-	val nextActionLiveEvent = LiveEvent<NavDirections>()
-
+object AppViewModel : DelegatingViewModel<AppViewModel.Delegate>() {
 	fun performNavigationAction(action: NavDirections) {
-		nextActionLiveEvent.value = action
+		delegate?.performNavigation(action)
 	}
 
 	//Should I let the calling class directly set the value of the live data? I did a bit of encapsulation.
@@ -30,7 +28,13 @@ object AppViewModel {
 
 	fun onCompositionSelected(selectedEntry: Composition) {
 		_selectedComposition.value = selectedEntry
-		nextActionLiveEvent.value = CompositionListFragmentDirections
-			.actionCompositionListFragmentToCompositionDetailFragment()
+		performNavigationAction(
+			CompositionListFragmentDirections
+				.actionCompositionListFragmentToCompositionDetailFragment()
+		)
+	}
+
+	interface Delegate {
+		fun performNavigation(navDirections: NavDirections)
 	}
 }

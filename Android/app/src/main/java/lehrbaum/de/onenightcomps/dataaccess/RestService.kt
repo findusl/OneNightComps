@@ -70,9 +70,9 @@ private class CallbackImpl<ResultType>(val deferred: CompletableDeferred<ResultT
 		call: Call<RestResponse<ResultType>>,
 		response: Response<RestResponse<ResultType>>
 	) {
-		if (response.isSuccessful && response.body() != null) {
-			val body = response.body()!!
-			if (!body.errorMessage.isEmpty()) {
+		val body = response.body()
+		if (response.isSuccessful && body != null) {
+			if (body.errorMessage.isNotEmpty()) {
 				val throwable = handleErrorMessage(body.errorMessage)
 				if (throwable != null)
 					deferred.completeExceptionally(throwable)
@@ -84,7 +84,7 @@ private class CallbackImpl<ResultType>(val deferred: CompletableDeferred<ResultT
 			}
 		} else {
 			val t = when (response.code()) {
-				404 -> ResourceNotFoundException(call.request().url().encodedPath())
+				404 -> ResourceNotFoundException(call.request().url.encodedPath)
 				else -> DataAccessException("Got error code: " + response.code())
 			}
 			deferred.completeExceptionally(t)

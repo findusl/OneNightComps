@@ -3,8 +3,6 @@ package lehrbaum.de.onenightcomps.fragments
 import android.content.Context
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import lehrbaum.de.onenightcomps.LiveEvent
-import lehrbaum.de.onenightcomps.observe
 
 enum class DialogType {
 	ALERT_DIALOG,
@@ -21,16 +19,9 @@ data class DialogViewModel(val title: String, val description: String, val dialo
 				   dialogType)
 }
 
-fun LiveEvent<DialogViewModel>.showDialogOnChange(fragment: Fragment) {
-	observe(fragment) {
-		if (it != null)
-			fragment.showDialog(it)
-	}
-}
-
 fun Fragment.showDialog(dialogViewModel: DialogViewModel) {
-	if (context == null) return
-	AlertDialog.Builder(context!!)
+	val context = context ?: return
+	AlertDialog.Builder(context)
 		.setTitle(dialogViewModel.title)
 		.setMessage(dialogViewModel.description)
 		.setPositiveButton(android.R.string.ok, null)

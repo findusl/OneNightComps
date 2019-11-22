@@ -1,7 +1,8 @@
 package lehrbaum.de.onenightcomps.viewmodel
 
 import android.view.View
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableNonNullLiveData
+import androidx.lifecycle.NonNullLiveData
 
 typealias LongClickItemListener<ItemType> = (ItemType) -> Unit
 
@@ -18,23 +19,18 @@ class CheckableGridViewModel<ItemType>(
 		}.toTypedArray()
 
 	fun getSelectedItems(): List<ItemType> {
-		return viewModels.filter { it.checked.value!! }.map { it.item }
+		return viewModels.filter { it.checked.value }.map { it.item }
 	}
 }
 
 class SimpleCheckableListItemViewModel<ItemType>(val item: ItemType, text: String) :
-	View.OnLongClickListener, View.OnClickListener {
-	val checked: MutableLiveData<Boolean> = MutableLiveData()
-	val text: MutableLiveData<String> = MutableLiveData()
+		View.OnLongClickListener, View.OnClickListener {
+	val checked = MutableNonNullLiveData(false)
+	val text = NonNullLiveData(text)
 	var longClickListener: LongClickItemListener<ItemType>? = null
 
-	init {
-		checked.value = false
-		this.text.value = text
-	}
-
 	override fun onClick(v: View) {
-		checked.value = !checked.value!!
+		checked.value = !checked.value
 	}
 
 	override fun onLongClick(v: View?): Boolean {

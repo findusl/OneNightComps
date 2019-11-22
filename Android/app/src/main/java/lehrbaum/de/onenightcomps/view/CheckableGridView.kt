@@ -39,9 +39,9 @@ class CheckableGridView<ItemType> @JvmOverloads constructor(
 		}
 
 	private fun generateAdapter() {
-		if (lifecycleOwner != null && viewModel != null) {
-			adapter = CheckableArrayAdapter(context, lifecycleOwner!!, viewModel!!.viewModels)
-		}
+		val lifecycleOwner = lifecycleOwner ?: return
+		val viewModel = viewModel ?: return
+		adapter = CheckableArrayAdapter(context, lifecycleOwner, viewModel.viewModels)
 	}
 }
 
@@ -50,7 +50,7 @@ class CheckableArrayAdapter<ItemType>(
 	private val lifecycleOwner: LifecycleOwner,
 	private val viewModels: Array<SimpleCheckableListItemViewModel<ItemType>>
 ) : RecyclerView.Adapter<SimpleCheckableViewHolder>() {
-	val inflater: LayoutInflater = LayoutInflater.from(context)
+	private val inflater: LayoutInflater = LayoutInflater.from(context)
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleCheckableViewHolder {
 		val binding =
