@@ -4,26 +4,24 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.bmw.connride.ui.viewmodel.DelegatingViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import lehrbaum.de.onenightcomps.LiveEvent
 import lehrbaum.de.onenightcomps.R
+import lehrbaum.de.onenightcomps.TextProvider
 import lehrbaum.de.onenightcomps.dataaccess.DataAccessException
 import lehrbaum.de.onenightcomps.dataaccess.NetworkUnavailableException
 import lehrbaum.de.onenightcomps.dataaccess.ResourceNotFoundException
 import lehrbaum.de.onenightcomps.map
 
-typealias TextProvider = (c: Context) -> String
-
 private const val TAG = "ErrorViewModel"
 
-open class ErrorViewModel : ViewModel() {
-	//TODO check internet connection here and keep it shown
-	internal val disappearingErrorLiveEvent = LiveEvent<TextProvider>()
+open class ErrorViewModel : GenericErrorViewModel<GenericErrorViewModel.Delegate>()
 
-	internal val consentErrorLiveEvent = LiveEvent<TextProvider>()
+open class GenericErrorViewModel<DelegateType : GenericErrorViewModel.Delegate> :
+		DelegatingViewModel<DelegateType>() {
+	//TODO check internet connection here and keep it shown
 
 	val isLoading = MutableLiveData<Boolean>()
 	val loadingIndicatorVisibility = isLoading.map<Boolean, Int>(::isVisibleToVisibility)
@@ -76,7 +74,7 @@ open class ErrorViewModel : ViewModel() {
 		errorMessageStringResource: Int,
 		vararg formatArgs: Any
 	) {
-		disappearingErrorLiveEvent.value = { it.getString(errorMessageStringResource, *formatArgs) }
+		delegate?.showDisappearingError { it.getString(errorMessageStringResource, *formatArgs) }
 	}
 
 	/**
@@ -86,7 +84,12 @@ open class ErrorViewModel : ViewModel() {
 		errorMessageStringResource: Int,
 		vararg formatArgs: Any
 	) {
-		consentErrorLiveEvent.value = { it.getString(errorMessageStringResource, *formatArgs) }
+		delegate?.showConsentError { it.getString(errorMessageStringResource, *formatArgs) }
+	}
+
+	interface Delegate {
+		fun showDisappearingError(message: TextProvider)
+		fun showConsentError(message: TextProvider)
 	}
 }
 

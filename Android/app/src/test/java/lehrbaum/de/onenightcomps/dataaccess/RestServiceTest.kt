@@ -1,12 +1,18 @@
 package lehrbaum.de.onenightcomps.dataaccess
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import org.junit.Assert.*
+import org.junit.Rule
 import org.junit.Test
 
 class RestServiceTest {
+	@Rule
+	@JvmField
+	val instantTaskExecutorRule = InstantTaskExecutorRule()
+
 	private var restService: RestService = RestServiceFactory.getRestService()
 
-	@Test
+	//TODO @Test first remove KoinExt.kt
 	fun serverResponseValidTest() {
 		val httpResponse = restService.getCompositions().execute()
 		assertTrue("Request was not successful: " + httpResponse.code(), httpResponse.isSuccessful)

@@ -2,6 +2,7 @@ package lehrbaum.de.onenightcomps.viewmodel
 
 import android.view.View
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableNonNullLiveData
 import lehrbaum.de.onenightcomps.R
 import lehrbaum.de.onenightcomps.dataaccess.UserRepository
 import lehrbaum.de.onenightcomps.fragments.LoginFragmentDirections
@@ -10,27 +11,25 @@ import lehrbaum.de.onenightcomps.inject
 class LoginViewModel : ErrorViewModel() {
 	val username = MutableLiveData<String>()
 	val password = MutableLiveData<String>()
-	val usernameValid = MutableLiveData<Boolean>()
-	val passwordValid = MutableLiveData<Boolean>()
+	val usernameValid = MutableNonNullLiveData(true)
+	val passwordValid = MutableNonNullLiveData(true)
 
 	private val userRepository: UserRepository by inject()
 
 	init {
 		username.value = ""
 		password.value = ""
-		usernameValid.value = true
-		passwordValid.value = true
 	}
 
 	fun validateUsername(s: CharSequence, start: Int, before: Int, count: Int) {
 		//undo invalid username marking
-		if (!usernameValid.value!! && !username.value.isNullOrEmpty())
+		if (!usernameValid.value && !username.value.isNullOrEmpty())
 			usernameValid.value = true
 	}
 
 	fun validatePassword(s: CharSequence, start: Int, before: Int, count: Int) {
 		//undo invalid username marking
-		if (!passwordValid.value!! && !password.value.isNullOrEmpty())
+		if (!passwordValid.value && !password.value.isNullOrEmpty())
 			passwordValid.value = true
 	}
 
@@ -46,7 +45,7 @@ class LoginViewModel : ErrorViewModel() {
 		}
 
 		tryAndHandleExceptionAsync {
-			val result = userRepository.login(username.value!!, password.value!!)
+			val result = userRepository.login(username.value ?: "", password.value ?: "")
 			if (result) {
 				AppViewModel.performNavigationAction(
 					LoginFragmentDirections.actionLoginFragmentToCompositionListFragment()

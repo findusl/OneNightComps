@@ -7,13 +7,19 @@ import lehrbaum.de.onenightcomps.R
 import lehrbaum.de.onenightcomps.databinding.FragmentCompositionCreateBinding
 import lehrbaum.de.onenightcomps.viewmodel.CreateCompositionViewModel
 
-class CompositionCreateFragment : ErrorHandlingFragment<CreateCompositionViewModel>() {
+class CompositionCreateFragment : ErrorHandlingFragment<CreateCompositionViewModel>(),
+                                  CreateCompositionViewModel.Delegate {
 
 	override fun onCreateViewModel(): CreateCompositionViewModel {
 		val viewModel = ViewModelProviders.of(this)
 			.get(CreateCompositionViewModel::class.java)
-		viewModel.dialogLiveEvent.showDialogOnChange(this)
+
+		viewModel.setDelegate(this, this)
 		return viewModel
+	}
+
+	override fun showInfoDialog(name: String, message: String) {
+		showDialog(DialogViewModel(name, message, DialogType.INFO_DIALOG))
 	}
 
 	override fun onCreateView(

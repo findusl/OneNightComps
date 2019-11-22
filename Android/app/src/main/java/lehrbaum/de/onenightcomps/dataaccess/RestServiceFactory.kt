@@ -60,7 +60,7 @@ internal object RestServiceFactory {
 		}
 
 		fun credentialsFromCurrentUser(): String {
-			val user = userRepository.currentUser!!
+			val user = userRepository.currentUser ?: return ""
 			return Credentials.basic(user.username, user.passwordBase64)
 		}
 	}

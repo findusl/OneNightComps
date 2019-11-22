@@ -40,12 +40,11 @@ open class RoleGridView @JvmOverloads constructor(
 	}
 
 	protected open fun generateAdapter() {
-		if (itemSource != null && roleClickListener != null)
-			adapter =
-				ArrayAdapter(context, itemSource ?: arrayOf(), GameRole::name, roleClickListener!!)
+		val roleClickListener = roleClickListener ?: return
+		val items = itemSource ?: arrayOf()
+		if (itemSource != null)
+			adapter = ArrayAdapter(context, items, GameRole::name, roleClickListener)
 	}
-
-
 }
 
 class ArrayAdapter<ItemType>(
