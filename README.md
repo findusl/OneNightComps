@@ -1,2 +1,2 @@
 # OneNightComps
-This repo is for a xamarin app that allows users to search and share compositions for the game one night werwolves.
+This repo is for the backend and a frontend app that allows users to search and share compositions for the game one night werwolves.
