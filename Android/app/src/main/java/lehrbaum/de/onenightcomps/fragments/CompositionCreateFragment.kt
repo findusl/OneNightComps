@@ -7,7 +7,7 @@ import lehrbaum.de.onenightcomps.R
 import lehrbaum.de.onenightcomps.databinding.FragmentCompositionCreateBinding
 import lehrbaum.de.onenightcomps.viewmodel.CreateCompositionViewModel
 
-class CompositionCreateFragment : ErrorHandlingFragment<CreateCompositionViewModel>(),
+class CompositionCreateFragment : GenericErrorHandlingFragment<CreateCompositionViewModel>(),
                                   CreateCompositionViewModel.Delegate {
 
 	override fun onCreateViewModel(): CreateCompositionViewModel {

@@ -4,10 +4,19 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import lehrbaum.de.onenightcomps.TextProvider
+import lehrbaum.de.onenightcomps.viewmodel.ErrorViewModel
 import lehrbaum.de.onenightcomps.viewmodel.GenericErrorViewModel
 
 
-abstract class ErrorHandlingFragment<ViewModelType : GenericErrorViewModel<*>> :
+abstract class ErrorHandlingFragment<ViewModelType : ErrorViewModel> :
+	GenericErrorHandlingFragment<ViewModelType>() {
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		viewModel.setDelegate(this, this)
+	}
+}
+
+abstract class GenericErrorHandlingFragment<ViewModelType : GenericErrorViewModel<*>> :
 		Fragment(), GenericErrorViewModel.Delegate {
 
 	protected lateinit var viewModel: ViewModelType

@@ -25,7 +25,7 @@ open class DelegatingViewModel<DelegateType> : ViewModel() {
 	}
 
 	@MainThread
-	fun setDelegate(delegate: DelegateType, owner: LifecycleOwner) {
+	open fun setDelegate(delegate: DelegateType, owner: LifecycleOwner) {
 		if (owner.lifecycle.currentState == DESTROYED) {
 			return //ignore
 		}

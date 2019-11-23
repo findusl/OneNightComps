@@ -21,7 +21,7 @@ import lehrbaum.de.onenightcomps.viewmodel.AppViewModel
 import lehrbaum.de.onenightcomps.viewmodel.NavDrawerViewModel
 import org.koin.android.ext.android.startKoin
 
-class MainActivity : AppCompatActivity(), AppViewModel.Delegate {
+class MainActivity : AppCompatActivity(), AppViewModel.Delegate, NavDrawerViewModel.Delegate {
 
 	private lateinit var drawerLayout: DrawerLayout
 	private lateinit var appBarConfiguration: AppBarConfiguration
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity(), AppViewModel.Delegate {
 		}
 		navView = findViewById(R.id.nav_view)
 		navView.setupWithNavController(navController)
-		navDrawerViewModel.initWithItemVisibilityToggler(this::setMenuItemVisibility)
+		navDrawerViewModel.setDelegate(this, this)
 		setUpLogoutAction()
 		AppViewModel.setDelegate(this, this)
 	}
@@ -68,8 +68,8 @@ class MainActivity : AppCompatActivity(), AppViewModel.Delegate {
 		}
 	}
 
-	private fun setMenuItemVisibility(menuItemId: Int, visibility: Boolean) {
-		navView.menu.findItem(menuItemId)?.isVisible = visibility
+	override fun setMenuItemVisibility(id: Int, isVisible: Boolean) {
+		navView.menu.findItem(id)?.isVisible = isVisible
 	}
 
 	private fun setUpSideDrawerAndAppBar() {
