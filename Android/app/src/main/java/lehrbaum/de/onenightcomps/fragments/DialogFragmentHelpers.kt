@@ -1,5 +1,6 @@
 package lehrbaum.de.onenightcomps.fragments
 
+import android.content.Context
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 
@@ -8,7 +9,15 @@ enum class DialogType {
 	INFO_DIALOG
 }
 
-data class DialogViewModel(val title: String, val description: String, val dialogType: DialogType)
+data class DialogViewModel(val title: String, val description: String, val dialogType: DialogType) {
+	constructor(titleResource: Int,
+				descriptionResource: Int,
+				dialogType: DialogType,
+				context: Context)
+			: this(context.getString(titleResource),
+				   context.getString(descriptionResource),
+				   dialogType)
+}
 
 fun Fragment.showDialog(dialogViewModel: DialogViewModel) {
 	val context = context ?: return

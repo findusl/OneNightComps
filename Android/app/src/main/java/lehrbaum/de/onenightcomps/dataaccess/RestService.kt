@@ -84,7 +84,7 @@ private class CallbackImpl<ResultType>(val deferred: CompletableDeferred<ResultT
 			}
 		} else {
 			val t = when (response.code()) {
-				404 -> ResourceNotFoundException(call.request().url().encodedPath())
+				404 -> ResourceNotFoundException(call.request().url.encodedPath)
 				else -> DataAccessException("Got error code: " + response.code())
 			}
 			deferred.completeExceptionally(t)

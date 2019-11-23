@@ -3,6 +3,9 @@ function encodeResult($result, $error = "") {
     if($error instanceof Exception) {
         $error = $error->getCode()." ".$error->getMessage();
     }
+    if($error != null && $error !== '') {
+        file_put_contents('./errors.log', $error, FILE_APPEND);
+    }
     return json_encode(array("errorMessage"=>$error, "result"=>$result));
 }
 

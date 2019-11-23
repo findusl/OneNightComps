@@ -1,7 +1,10 @@
 package lehrbaum.de.onenightcomps.viewmodel
 
 import android.view.View
+import android.widget.EditText
+import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
+import com.google.android.material.textfield.TextInputLayout
 import androidx.lifecycle.MutableNonNullLiveData
 import lehrbaum.de.onenightcomps.R
 import lehrbaum.de.onenightcomps.dataaccess.UserRepository
@@ -11,8 +14,8 @@ import lehrbaum.de.onenightcomps.inject
 class LoginViewModel : ErrorViewModel() {
 	val username = MutableLiveData<String>()
 	val password = MutableLiveData<String>()
-	val usernameValid = MutableNonNullLiveData(true)
-	val passwordValid = MutableNonNullLiveData(true)
+
+	val name = "Hi"
 
 	private val userRepository: UserRepository by inject()
 
@@ -21,28 +24,12 @@ class LoginViewModel : ErrorViewModel() {
 		password.value = ""
 	}
 
-	fun validateUsername(s: CharSequence, start: Int, before: Int, count: Int) {
-		//undo invalid username marking
-		if (!usernameValid.value && !username.value.isNullOrEmpty())
-			usernameValid.value = true
-	}
-
-	fun validatePassword(s: CharSequence, start: Int, before: Int, count: Int) {
-		//undo invalid username marking
-		if (!passwordValid.value && !password.value.isNullOrEmpty())
-			passwordValid.value = true
-	}
-
 	fun loginClicked(unused: View) {
-		//TODO show dialog or something
-		if (username.value.isNullOrEmpty()) {
-			usernameValid.value = false
+		if (username.value.isNullOrEmpty())
 			return
-		}
-		if (password.value.isNullOrEmpty()) {
-			passwordValid.value = false
+
+		if (password.value.isNullOrEmpty())
 			return
-		}
 
 		tryAndHandleExceptionAsync {
 			val result = userRepository.login(username.value ?: "", password.value ?: "")
