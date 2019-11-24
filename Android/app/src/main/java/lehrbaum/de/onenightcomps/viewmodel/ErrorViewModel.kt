@@ -3,17 +3,19 @@ package lehrbaum.de.onenightcomps.viewmodel
 import android.content.Context
 import android.util.Log
 import android.view.View
+import androidx.annotation.StringRes
 import androidx.lifecycle.MutableLiveData
 import com.bmw.connride.ui.viewmodel.DelegatingViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import lehrbaum.de.onenightcomps.R
-import lehrbaum.de.onenightcomps.TextProvider
 import lehrbaum.de.onenightcomps.dataaccess.DataAccessException
 import lehrbaum.de.onenightcomps.dataaccess.NetworkUnavailableException
 import lehrbaum.de.onenightcomps.dataaccess.ResourceNotFoundException
 import lehrbaum.de.onenightcomps.map
+import lehrbaum.de.onenightcomps.view.TextProvider
+import lehrbaum.de.onenightcomps.view.asTextProvider
 
 private const val TAG = "ErrorViewModel"
 
@@ -71,20 +73,20 @@ open class GenericErrorViewModel<DelegateType : GenericErrorViewModel.Delegate> 
 	 * @see Context.getString
 	 */
 	private fun displayDisappearingErrorMessage(
-		errorMessageStringResource: Int,
-		vararg formatArgs: Any
+		@StringRes errorMessageStringResource: Int,
+		vararg formatArgs: Any?
 	) {
-		delegate?.showDisappearingError { it.getString(errorMessageStringResource, *formatArgs) }
+		delegate?.showDisappearingError(errorMessageStringResource.asTextProvider(*formatArgs))
 	}
 
 	/**
 	 * @see Context.getString
 	 */
 	protected fun displayConsentErrorMessage(
-		errorMessageStringResource: Int,
+		@StringRes errorMessageStringResource: Int,
 		vararg formatArgs: Any
 	) {
-		delegate?.showConsentError { it.getString(errorMessageStringResource, *formatArgs) }
+		delegate?.showConsentError(errorMessageStringResource.asTextProvider(*formatArgs))
 	}
 
 	interface Delegate {

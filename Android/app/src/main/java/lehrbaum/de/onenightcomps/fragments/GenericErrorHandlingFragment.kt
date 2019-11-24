@@ -3,7 +3,7 @@ package lehrbaum.de.onenightcomps.fragments
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
-import lehrbaum.de.onenightcomps.TextProvider
+import lehrbaum.de.onenightcomps.view.TextProvider
 import lehrbaum.de.onenightcomps.viewmodel.ErrorViewModel
 import lehrbaum.de.onenightcomps.viewmodel.GenericErrorViewModel
 

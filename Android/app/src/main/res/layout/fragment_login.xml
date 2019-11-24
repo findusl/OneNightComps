@@ -19,9 +19,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:hint="@string/username"
-			app:hintEnabled="true"
-			app:errorEnabled="true"
-			app:errorText="@{viewModel.name}"
+				app:error="@{viewModel.usernameError}"
 			>
 			<!--app:errorText="Please provide a username."-->
 			<com.google.android.material.textfield.TextInputEditText
@@ -37,8 +35,9 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:hint="@string/password"
+				android:paddingTop="6dp"
 			app:passwordToggleEnabled="true"
-			app:errorEnabled="true"
+				app:error="@{viewModel.passwordError}"
 			>
 			<!--app:errorText="Please provide a password."-->
 			<com.google.android.material.textfield.TextInputEditText

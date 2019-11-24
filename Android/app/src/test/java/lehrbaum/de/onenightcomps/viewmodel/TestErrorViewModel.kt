@@ -10,10 +10,11 @@ import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import lehrbaum.de.onenightcomps.R
-import lehrbaum.de.onenightcomps.TextProvider
 import lehrbaum.de.onenightcomps.dataaccess.NetworkUnavailableException
 import lehrbaum.de.onenightcomps.rules.CoroutinesRule
-import org.junit.Assert.*
+import lehrbaum.de.onenightcomps.view.TextProvider
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
