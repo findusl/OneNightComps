@@ -1,7 +1,9 @@
 package lehrbaum.de.onenightcomps.dataaccess
 
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+
 
 /**
  * This test checks whether the composition repository passes errors and results correctly
@@ -9,14 +11,16 @@ import org.junit.Test
 class CompositionRepositoryTest {
 	private lateinit var compositionRepository: CompositionRepository
 
-	@Before
+	@BeforeEach
 	fun setUp() {
 		//TODO inject mock UserRepository
 		compositionRepository = CompositionRepository()
 	}
 
-	@Test(expected = NotLoggedInException::class)
+	@Test()
 	fun createComposition_notLoggedIn_exceptionThrown() {
-		throw NotLoggedInException()
+		assertThrows<NotLoggedInException> {
+			throw NotLoggedInException()
+		}
 	}
 }

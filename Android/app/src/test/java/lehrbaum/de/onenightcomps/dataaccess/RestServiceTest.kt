@@ -1,37 +1,35 @@
 package lehrbaum.de.onenightcomps.dataaccess
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import org.junit.Assert.*
-import org.junit.Rule
-import org.junit.Test
+import lehrbaum.de.onenightcomps.rules.InstantExecutorExtension
+import lehrbaum.de.onenightcomps.rules.LogExtension
+import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.extension.ExtendWith
 
+@ExtendWith(LogExtension::class, InstantExecutorExtension::class)
 class RestServiceTest {
-	@Rule
-	@JvmField
-	val instantTaskExecutorRule = InstantTaskExecutorRule()
 
 	private var restService: RestService = RestServiceFactory.getRestService()
 
 	//TODO @Test first remove KoinExt.kt
 	fun serverResponseValidTest() {
 		val httpResponse = restService.getCompositions().execute()
-		assertTrue("Request was not successful: " + httpResponse.code(), httpResponse.isSuccessful)
-		assertNotNull("Body of response was null", httpResponse.body())
+		assertTrue(httpResponse.isSuccessful, "Request was not successful: " + httpResponse.code())
+		assertNotNull(httpResponse.body(), "Body of response was null")
 		val response = httpResponse.body()!!
 		assertTrue(
-			"Not empty error message: " + response.errorMessage,
-			response.errorMessage.isEmpty()
+			response.errorMessage.isEmpty(),
+			"Not empty error message: " + response.errorMessage
 		)
 		assertNotNull(response.result)
 		val compositions = response.result!!
-		assertNotEquals("There are no compositions", 0, compositions.size)
+		assertNotEquals(0, compositions.size, "There are no compositions")
 		for (comp in compositions) {
-			assertNotEquals("Id of comp is -1", -1, comp.id)
+			assertNotEquals(-1, comp.id, "Id of comp is -1")
 			for (role in comp.roles) {
-				assertNotEquals("Id of role is -1", -1, role.id)
-				assertNotNull("Faction is null", role.faction)
+				assertNotEquals(-1, role.id, "Id of role is -1")
+				assertNotNull(role.faction, "Faction is null")
 				val faction = role.faction!!
-				assertNotEquals("Id of faction is -1", -1, faction.id)
+				assertNotEquals(-1, faction.id, "Id of faction is -1")
 			}
 		}
 	}

@@ -2,37 +2,34 @@ package lehrbaum.de.onenightcomps.viewmodel
 
 import android.content.Context
 import android.view.View
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import com.nhaarman.mockitokotlin2.*
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 import lehrbaum.de.onenightcomps.R
 import lehrbaum.de.onenightcomps.dataaccess.NetworkUnavailableException
-import lehrbaum.de.onenightcomps.rules.CoroutinesRule
+import lehrbaum.de.onenightcomps.rules.CoroutinesExtension
+import lehrbaum.de.onenightcomps.rules.InstantExecutorExtension
+import lehrbaum.de.onenightcomps.rules.LogExtension
 import lehrbaum.de.onenightcomps.view.TextProvider
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
+@ObsoleteCoroutinesApi
+@ExperimentalCoroutinesApi
+@ExtendWith(LogExtension::class, InstantExecutorExtension::class, CoroutinesExtension::class)
 class TestErrorViewModel {
-	@Rule
-	@JvmField
-	val instantTaskExecutorRule = InstantTaskExecutorRule()
-
-	@ExperimentalCoroutinesApi
-	@Rule
-	@JvmField
-	val coroutinesRule = CoroutinesRule()
 
 	private lateinit var errorViewModel: ErrorViewModel
 	private val errorViewModelDelegate = mock<GenericErrorViewModel.Delegate>()
 
-	@Before
+	@BeforeEach
 	fun setUp() {
 		errorViewModel = ErrorViewModel()
 		val lifecycle = mock<Lifecycle>() {
@@ -64,9 +61,9 @@ class TestErrorViewModel {
 		verify(errorViewModelDelegate).showDisappearingError(captor.capture())
 
 		assertEquals(
-			"disappearing message was not correct",
+			captor.firstValue.invoke(context),
 			"test",
-			captor.firstValue.invoke(context)
+			"disappearing message was not correct"
 		)
 	}
 
