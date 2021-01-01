@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import androidx.annotation.StringRes
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableNonNullLiveData
 import com.bmw.connride.ui.viewmodel.DelegatingViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -13,7 +13,6 @@ import lehrbaum.de.onenightcomps.R
 import lehrbaum.de.onenightcomps.dataaccess.DataAccessException
 import lehrbaum.de.onenightcomps.dataaccess.NetworkUnavailableException
 import lehrbaum.de.onenightcomps.dataaccess.ResourceNotFoundException
-import lehrbaum.de.onenightcomps.map
 import lehrbaum.de.onenightcomps.view.TextProvider
 import lehrbaum.de.onenightcomps.view.asTextProvider
 
@@ -25,12 +24,8 @@ open class GenericErrorViewModel<DelegateType : GenericErrorViewModel.Delegate> 
 		DelegatingViewModel<DelegateType>() {
 	//TODO check internet connection here and keep it shown
 
-	val isLoading = MutableLiveData<Boolean>()
-	val loadingIndicatorVisibility = isLoading.map<Boolean, Int>(::isVisibleToVisibility)
-
-	init {
-		isLoading.value = false
-	}
+	val isLoading = MutableNonNullLiveData<Boolean>(false)
+	val loadingIndicatorVisibility = isLoading.map(::isVisibleToVisibility)
 
 	internal fun tryAndHandleExceptionAsync(
 		showLoading: Boolean = false,
@@ -40,7 +35,6 @@ open class GenericErrorViewModel<DelegateType : GenericErrorViewModel.Delegate> 
 			try {
 				if (showLoading) isLoading.value = true
 				block()
-				if (showLoading) isLoading.value = false
 			} catch (e: DataAccessException) {
 				handleDataAccessException(e)
 			} finally {

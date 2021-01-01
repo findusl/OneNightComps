@@ -15,6 +15,6 @@
 		android:checkMarkTint="@color/colorPrimary"
 		android:checked="@{viewModel.checked}"
 		android:text="@{viewModel.text}"
-		android:onClick="@{viewModel.onClick}"
-		android:onLongClick="@{viewModel.onLongClick}"/>
+		android:onClick="@{viewModel::onClick}"
+		android:onLongClick="@{viewModel::onLongClick}"/>
 </layout>

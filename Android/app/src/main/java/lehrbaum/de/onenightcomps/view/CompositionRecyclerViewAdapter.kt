@@ -2,13 +2,12 @@ package lehrbaum.de.onenightcomps.view
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.LiveData
-import lehrbaum.de.onenightcomps.R
+import lehrbaum.de.onenightcomps.databinding.FragmentCompositionListBinding
+import lehrbaum.de.onenightcomps.databinding.FragmentCompositionsListBinding
 
-import kotlinx.android.synthetic.main.fragment_compositions_list.view.*
 import lehrbaum.de.onenightcomps.model.Composition
 
 class CompositionRecyclerViewAdapter(
@@ -17,23 +16,22 @@ class CompositionRecyclerViewAdapter(
 ) : RecyclerView.Adapter<CompositionRecyclerViewAdapter.ViewHolder>() {
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-		val view = LayoutInflater.from(parent.context)
-			.inflate(R.layout.fragment_compositions_list, parent, false)
-		return ViewHolder(view)
+		val binding = FragmentCompositionsListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+		return ViewHolder(binding)
 	}
 
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-		val comp = compositionsList.value?.get(position) ?: return//can't bind on not existing item
+		val comp = compositionsList.value?.get(position) ?: return // can't bind on not existing item
 		holder.iddView.text = comp.playerCount.toString()
 		holder.contentView.text = comp.name
-		holder.view.tag = comp
-		holder.view.setOnClickListener { onItemSelectedListener(comp) }
+		holder.itemView.tag = comp
+		holder.itemView.setOnClickListener { onItemSelectedListener(comp) }
 	}
 
 	override fun getItemCount(): Int = compositionsList.value?.size ?: 0
 
-	inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-		val iddView: TextView = view.item_number
-		val contentView: TextView = view.content
+	inner class ViewHolder(val binding: FragmentCompositionsListBinding) : RecyclerView.ViewHolder(binding.root) {
+		val iddView: TextView = binding.itemNumber
+		val contentView: TextView = binding.content
 	}
 }

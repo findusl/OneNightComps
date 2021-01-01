@@ -33,7 +33,7 @@ class LoginViewModel : ErrorViewModel() {
 		}
 	}
 
-	fun validateInputFields(): Boolean {
+	private fun validateInputFields(): Boolean {
 		if (username.value.isNullOrEmpty())
 			usernameError.value = R.string.please_input_username.asTextProvider()
 		else

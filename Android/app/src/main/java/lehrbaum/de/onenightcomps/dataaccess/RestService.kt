@@ -77,8 +77,8 @@ private class CallbackImpl<ResultType>(val deferred: CompletableDeferred<ResultT
 				if (throwable != null)
 					deferred.completeExceptionally(throwable)
 			}
-			//logically would be else if, but for testing
-			//I sometimes use the error message for information
+			// logically would be else if, but for testing
+			// I sometimes use the error message for information
 			if (body.result != null) {
 				deferred.complete(body.result)
 			}

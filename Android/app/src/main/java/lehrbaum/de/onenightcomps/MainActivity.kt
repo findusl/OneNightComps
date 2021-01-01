@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), AppViewModel.Delegate, NavDrawerViewMo
 		if (savedInstanceState == null)
 			setUpKoin()
 
-		navDrawerViewModel = ViewModelProviders.of(this).get(NavDrawerViewModel::class.java)
+		navDrawerViewModel = ViewModelProvider(this).get(NavDrawerViewModel::class.java)
 		setUpNavigation()
 		setUpSideDrawerAndAppBar()
 	}

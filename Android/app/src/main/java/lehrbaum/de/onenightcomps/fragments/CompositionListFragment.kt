@@ -2,13 +2,12 @@ package lehrbaum.de.onenightcomps.fragments
 
 import android.os.Bundle
 import android.view.*
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import lehrbaum.de.onenightcomps.R
 import lehrbaum.de.onenightcomps.databinding.FragmentCompositionListBinding
 import lehrbaum.de.onenightcomps.model.Composition
-import lehrbaum.de.onenightcomps.observe
 import lehrbaum.de.onenightcomps.view.CompositionRecyclerViewAdapter
 import lehrbaum.de.onenightcomps.viewmodel.AppViewModel
 import lehrbaum.de.onenightcomps.viewmodel.CompositionsListViewModel
@@ -23,7 +22,7 @@ class CompositionListFragment : ErrorHandlingFragment<CompositionsListViewModel>
 	}
 
 	override fun onCreateViewModel(): CompositionsListViewModel {
-		return ViewModelProviders.of(this).get(CompositionsListViewModel::class.java)
+		return ViewModelProvider(this).get(CompositionsListViewModel::class.java)
 	}
 
 	override fun onCreateView(
@@ -40,7 +39,7 @@ class CompositionListFragment : ErrorHandlingFragment<CompositionsListViewModel>
 	}
 
 	private fun setUpSwipeRefreshLayout(listBinding: FragmentCompositionListBinding) {
-		viewModel.isLoading.observe(this, listBinding.swipeRefreshLayout::setRefreshing)
+		viewModel.isLoading.observe(viewLifecycleOwner, listBinding.swipeRefreshLayout::setRefreshing)
 		listBinding.swipeRefreshLayout.setOnRefreshListener(viewModel)
 	}
 
@@ -50,7 +49,7 @@ class CompositionListFragment : ErrorHandlingFragment<CompositionsListViewModel>
 		// would love to do the observing in the CompositionRecyclerViewAdapter,
 		// but it doesn't have a lifecycle.
 		viewModel.getCompositions()
-			.observe(this) { view.adapter?.notifyDataSetChanged() }
+			.observe(viewLifecycleOwner) { view.adapter?.notifyDataSetChanged() }
 	}
 
 	private fun onItemSelected(comp: Composition) {
@@ -68,7 +67,7 @@ class CompositionListFragment : ErrorHandlingFragment<CompositionsListViewModel>
 		when (item.itemId) {
 			R.id.filter_menu_option -> {
 				val bottomSheet = FilterListBottomDialogFragment()
-				fragmentManager?.let { bottomSheet.show(it, null) }
+				parentFragmentManager.let { bottomSheet.show(it, null) }
 			}
 		}
 		return super.onOptionsItemSelected(item)

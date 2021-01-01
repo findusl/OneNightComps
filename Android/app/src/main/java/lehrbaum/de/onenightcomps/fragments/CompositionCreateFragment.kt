@@ -2,7 +2,7 @@ package lehrbaum.de.onenightcomps.fragments
 
 import android.os.Bundle
 import android.view.*
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import lehrbaum.de.onenightcomps.R
 import lehrbaum.de.onenightcomps.databinding.FragmentCompositionCreateBinding
 import lehrbaum.de.onenightcomps.viewmodel.CreateCompositionViewModel
@@ -11,7 +11,7 @@ class CompositionCreateFragment : GenericErrorHandlingFragment<CreateComposition
                                   CreateCompositionViewModel.Delegate {
 
 	override fun onCreateViewModel(): CreateCompositionViewModel {
-		val viewModel = ViewModelProviders.of(this)
+		val viewModel = ViewModelProvider(this)
 			.get(CreateCompositionViewModel::class.java)
 
 		viewModel.setDelegate(this, this)

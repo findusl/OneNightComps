@@ -7,8 +7,10 @@ import androidx.lifecycle.LifecycleOwner
 import com.nhaarman.mockitokotlin2.*
 import io.mockk.every
 import io.mockk.mockk
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
+import kotlinx.coroutines.runBlocking
 import lehrbaum.de.onenightcomps.R
 import lehrbaum.de.onenightcomps.dataaccess.NetworkUnavailableException
 import lehrbaum.de.onenightcomps.rules.CoroutinesExtension
@@ -69,8 +71,13 @@ class TestErrorViewModel {
 
 	@Test
 	fun testTryAndHandleExceptionAsync_ShowLoading_ShouldStartAndStopLoading() {
+		errorViewModel.loadingIndicatorVisibility.observeForever {  }
+		val loadingIndicatorVisibility = CompletableDeferred<Int>()
 		errorViewModel.tryAndHandleExceptionAsync(true) {
-			assertTrue(errorViewModel.loadingIndicatorVisibility.value == View.VISIBLE)
+			loadingIndicatorVisibility.complete(errorViewModel.loadingIndicatorVisibility.value)
+		}
+		runBlocking {
+			assertTrue(loadingIndicatorVisibility.await() == View.VISIBLE)
 		}
 	}
 

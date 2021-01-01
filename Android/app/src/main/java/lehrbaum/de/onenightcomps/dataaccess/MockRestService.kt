@@ -4,6 +4,7 @@ import lehrbaum.de.onenightcomps.model.Composition
 import lehrbaum.de.onenightcomps.model.GameRole
 import lehrbaum.de.onenightcomps.model.User
 import okhttp3.Request
+import okio.Timeout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -78,6 +79,10 @@ internal class DummyCall<T>(result: T) : Call<RestResponse<T>> {
 	}
 
 	override fun request(): Request {
+		throw NotImplementedError()
+	}
+
+	override fun timeout(): Timeout {
 		throw NotImplementedError()
 	}
 }
